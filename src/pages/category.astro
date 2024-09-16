@@ -1,8 +1,9 @@
 ---
-// src/pages/about.astro
+import MyComponent from '../components/MyComponent';
 import Layout from '../layouts/Layout.astro';
 ---
 <Layout title="category">
   <h1>Category page</h1>
+  <MyComponent message='hello its categoryPage!!'/>
   <p>This is the about page.</p>
 </Layout>

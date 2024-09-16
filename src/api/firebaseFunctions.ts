@@ -9,6 +9,8 @@ export const fetchItems = async<T>(firestoreCollections: string) => {
     querySnapshot.forEach((doc) => {
       const item = { ...doc.data() as T, id: doc.id }
       allItems.push(item as T)
+      console.log(allItems);
+
     })
     return allItems
 

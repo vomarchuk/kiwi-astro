@@ -347,72 +347,6 @@ export const LogoType = (props: SVGProps<SVGSVGElement>) => (
       ry={6.2}
       transform="rotate(-78.761 145.514 197.545)"
     />
-    <circle id="SVGID_1_" cx={1203.7} cy={104.3} r={21.1} />
-    <defs>
-      <circle id="SVGID_2_" cx={1203.7} cy={104.3} r={21.1} />
-    </defs>
-    <clipPath id="SVGID_4_">
-      <use
-        xlinkHref="#SVGID_2_"
-        style={{
-          overflow: 'visible',
-        }}
-      />
-    </clipPath>
-    <g
-      style={{
-        clipPath: 'url(#SVGID_4_)',
-      }}
-    >
-      <path id="SVGID_3_" d="M1177.5 78.1h52.2v52.2h-52.2z" />
-      <defs>
-        <path id="SVGID_5_" d="M1177.5 78.1h52.2v52.2h-52.2z" />
-      </defs>
-      <clipPath id="SVGID_7_">
-        <use
-          xlinkHref="#SVGID_5_"
-          style={{
-            overflow: 'visible',
-          }}
-        />
-      </clipPath>
-      <g
-        style={{
-          clipPath: 'url(#SVGID_7_)',
-        }}
-      >
-        <image
-          width={110}
-          height={110}
-          style={{
-            overflow: 'visible',
-          }}
-          transform="translate(1177.32 77.956) scale(.4778)"
-        />
-      </g>
-    </g>
-    <radialGradient
-      id="SVGID_9_"
-      cx={1203.7}
-      cy={670.251}
-      r={21.576}
-      gradientTransform="translate(0 -566)"
-      gradientUnits="userSpaceOnUse"
-    >
-      <stop
-        offset={1}
-        style={{
-          stopColor: '#a4a4a4',
-          stopOpacity: 0,
-        }}
-      />
-      <stop
-        offset={1}
-        style={{
-          stopColor: '#fff',
-        }}
-      />
-    </radialGradient>
     <circle
       cx={1203.7}
       cy={104.3}
@@ -434,38 +368,6 @@ export const LogoType = (props: SVGProps<SVGSVGElement>) => (
         }}
       />
     </clipPath>
-    <g
-      style={{
-        clipPath: 'url(#SVGID_11_)',
-      }}
-    >
-      <path id="SVGID_8_" d="M747.8 78.1H800v52.2h-52.2z" />
-      <defs>
-        <path id="SVGID_12_" d="M747.8 78.1H800v52.2h-52.2z" />
-      </defs>
-      <clipPath id="SVGID_13_">
-        <use
-          xlinkHref="#SVGID_12_"
-          style={{
-            overflow: 'visible',
-          }}
-        />
-      </clipPath>
-      <g
-        style={{
-          clipPath: 'url(#SVGID_13_)',
-        }}
-      >
-        <image
-          width={113}
-          height={110}
-          style={{
-            overflow: 'visible',
-          }}
-          transform="translate(747.369 78.312) scale(.4714)"
-        />
-      </g>
-    </g>
     <circle
       cx={774}
       cy={104.3}

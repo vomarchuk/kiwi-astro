@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { fetchItem, fetchItemsById } from '../api/firebaseFunctions'
+import { fetchItem, fetchItems, fetchItemsById } from '../api/firebaseFunctions'
 import {
   Container,
   Paper,
@@ -24,10 +24,26 @@ interface IService {
 interface ICategory {
   name: string
 }
+
+import { QueryClient } from '@tanstack/query-core'
+import { useQuery } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+const client = new QueryClient()
+
 const MyComponent: React.FC = () => {
   const [services, setServices] = useState<IService[]>()
   const [currentCategory, setCurrentCategory] = useState<ICategory>()
   const [loading, setLoading] = useState(true)
+
+  const { data: dataCategory } = useQuery(
+    {
+      queryKey: ['categories'],
+      queryFn: async () => await fetchItems('categories'),
+    },
+    client,
+  )
+  console.log(dataCategory)
+
   useEffect(() => {
     const serviceId = getQueryParam('id')
     const fetchData = async () => {
@@ -42,17 +58,22 @@ const MyComponent: React.FC = () => {
         )
         setCurrentCategory(fetchedCategory)
         setServices(fetchedItems)
-        console.log(fetchedItems)
       }
     }
     fetchData()
   }, [])
   return (
-    <Container sx={{ pt: '80px', textAlign: 'center' }}>
+    <Container
+      sx={{
+        pt: '80px',
+        textAlign: 'center',
+        fontFamily: 'Raleway, sans-serif',
+      }}
+    >
       {currentCategory && (
         <Typography
           component={'h1'}
-          sx={{ fontSize: '24px', fontWeight: '600' }}
+          sx={{ fontSize: '18px', fontWeight: '600' }}
         >
           {currentCategory.name}
         </Typography>
@@ -62,9 +83,9 @@ const MyComponent: React.FC = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Usługa</TableCell>
-              <TableCell>Cena</TableCell>
-              <TableCell>Czas wykonania</TableCell>
+              <TableCell sx={{ width: '65%' }}>Usługa</TableCell>
+              <TableCell sx={{ width: '25%' }}>Cena</TableCell>
+              <TableCell sx={{ width: '10%' }}>Czas wykonania</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -81,6 +102,7 @@ const MyComponent: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <ReactQueryDevtools client={client} />
     </Container>
   )
 }

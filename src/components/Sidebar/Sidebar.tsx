@@ -16,6 +16,7 @@ import { AppBar, Link, List, ListItem } from '@mui/material'
 import { SOCIAL_LINKS } from '../../constants/SOCIAL_LINKS'
 import { LogoType } from '../LogoType/LogoType'
 import { theme } from '../../theme'
+
 const pages = [
   {
     name: 'Manicure',

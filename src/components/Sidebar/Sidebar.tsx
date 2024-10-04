@@ -1,48 +1,27 @@
 // src/components/Sidebar.jsx
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import Menu from '@mui/material/Menu'
+import {
+  Button,
+  Container,
+  Menu,
+  MenuItem,
+  AppBar,
+  Link,
+  List,
+  ListItem,
+  IconButton,
+  Typography,
+  Toolbar,
+  Box,
+} from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
-import Container from '@mui/material/Container'
-import Button from '@mui/material/Button'
-import MenuItem from '@mui/material/MenuItem'
 import FacebookIcon from '@mui/icons-material/Facebook'
 import InstagramIcon from '@mui/icons-material/Instagram'
-import { AppBar, Link, List, ListItem } from '@mui/material'
 import { SOCIAL_LINKS } from '../../constants/SOCIAL_LINKS'
 import { LogoType } from '../LogoType/LogoType'
 import { theme } from '../../theme'
-
-const pages = [
-  {
-    name: 'Manicure',
-    id: 'W154NGGXXF3kHwwtgyY7',
-  },
-  {
-    name: 'Pedicure',
-    id: '48AGR5DdAwE7mcElvWXg',
-  },
-  {
-    name: 'Zabiegi na twarz',
-    id: '4UeXBlIEcT2PvQMzOsdt',
-  },
-  {
-    name: 'Medycyna estetyczna',
-    id: 'WSdqNQJdwoc7Wfw0fhUb',
-  },
-  {
-    name: 'Depilacja woskiem miękkim',
-    id: 'hrGLGqf4j0KLUoFwZVS0',
-  },
-  {
-    name: 'Brwi / rzesy',
-    id: '7IKnas48Kes3BUxo5ppv',
-  },
-]
+import { PAGES } from '../../constants/PAGES'
 
 const Sidebar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
@@ -92,7 +71,7 @@ const Sidebar = () => {
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
             >
-              {pages.map((page) => (
+              {PAGES.map((page) => (
                 <MenuItem key={page.id} onClick={handleCloseNavMenu}>
                   <Link
                     href={`/services?id=${page.id}`}
@@ -110,7 +89,7 @@ const Sidebar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <LogoType width={100} />
             <Box sx={{ display: 'flex', ml: '10px' }}>
-              {pages.map((page) => (
+              {PAGES.map((page) => (
                 <Button
                   key={page.id}
                   onClick={handleCloseNavMenu}

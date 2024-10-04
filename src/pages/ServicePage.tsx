@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { fetchItem, fetchItems, fetchItemsById } from '../api/firebaseFunctions'
+import React from 'react'
+import { fetchItem, fetchItemsById } from '../api/firebaseFunctions'
 import {
   Container,
   Paper,
@@ -11,57 +11,28 @@ import {
   TableRow,
   Typography,
 } from '@mui/material'
-import { getQueryParam } from '../helpers/getQueryParam'
 
-interface IService {
-  name: string
-  id: string
-  categoryId: string
-  categoryName: string
-  duration: string
-  price: string
-}
-interface ICategory {
-  name: string
-}
-
-import { QueryClient } from '@tanstack/query-core'
 import { useQuery } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-const client = new QueryClient()
+import { useSearch } from '@tanstack/react-router'
+import { queryClientParams } from '../helpers/queryClientParams'
 
 const MyComponent: React.FC = () => {
-  const [services, setServices] = useState<IService[]>()
-  const [currentCategory, setCurrentCategory] = useState<ICategory>()
-  const [loading, setLoading] = useState(true)
-
-  const { data: dataCategory } = useQuery(
+  const { id } = useSearch({ from: '/services' }) as any
+  const { data: dataCategory } = useQuery<any>(
     {
-      queryKey: ['categories'],
-      queryFn: async () => await fetchItems('categories'),
+      queryKey: ['categories', id],
+      queryFn: async () => await fetchItem('categories', id),
     },
-    client,
+    queryClientParams,
   )
-  console.log(dataCategory)
-
-  useEffect(() => {
-    const serviceId = getQueryParam('id')
-    const fetchData = async () => {
-      if (serviceId) {
-        const fetchedItems: IService[] | undefined = await fetchItemsById(
-          'services',
-          serviceId,
-        )
-        const fetchedCategory: ICategory | undefined = await fetchItem(
-          'categories',
-          serviceId,
-        )
-        setCurrentCategory(fetchedCategory)
-        setServices(fetchedItems)
-      }
-    }
-    fetchData()
-  }, [])
+  const { data: serviceData } = useQuery(
+    {
+      queryKey: ['services', id],
+      queryFn: async () => await fetchItemsById('services', id),
+    },
+    queryClientParams,
+  )
   return (
     <Container
       sx={{
@@ -70,12 +41,12 @@ const MyComponent: React.FC = () => {
         fontFamily: 'Raleway, sans-serif',
       }}
     >
-      {currentCategory && (
+      {dataCategory && (
         <Typography
           component={'h1'}
           sx={{ fontSize: '18px', fontWeight: '600' }}
         >
-          {currentCategory.name}
+          {dataCategory.name}
         </Typography>
       )}
 
@@ -89,8 +60,8 @@ const MyComponent: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {services &&
-              services.map((service) => {
+            {serviceData &&
+              serviceData.map((service: any) => {
                 return (
                   <TableRow key={service.id}>
                     <TableCell>{service.name}</TableCell>
@@ -102,7 +73,7 @@ const MyComponent: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <ReactQueryDevtools client={client} />
+      <ReactQueryDevtools client={queryClientParams} />
     </Container>
   )
 }

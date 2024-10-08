@@ -7,7 +7,6 @@ import {
   createRootRoute,
   Route,
 } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import ServicePage from '../../pages/ServicePage'
 import Sidebar from '../Sidebar/Sidebar'
 
@@ -18,16 +17,6 @@ export function Header() {
     </StrictMode>
   )
 }
-
-// const rootRoute = createRootRoute({
-//   component: () => (
-//     <>
-//       <Sidebar />
-//       <Outlet />
-//       <TanStackRouterDevtools />
-//     </>
-//   ),
-// })
 
 const rootRoute = createRootRoute({
   component: () => (

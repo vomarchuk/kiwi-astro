@@ -7,21 +7,17 @@ import {
   Menu,
   MenuItem,
   AppBar,
-  List,
-  ListItem,
   IconButton,
   Typography,
   Toolbar,
   Box,
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
-import FacebookIcon from '@mui/icons-material/Facebook'
-import InstagramIcon from '@mui/icons-material/Instagram'
-import { SOCIAL_LINKS } from '../../constants/SOCIAL_LINKS'
 import { LogoType } from '../LogoType/LogoType'
 import { theme } from '../../theme'
 import { PAGES } from '../../constants/PAGES'
 import { Link } from '@tanstack/react-router'
+import { SocialList } from '../SocialList/SocialList'
 const Sidebar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) =>
@@ -105,26 +101,7 @@ const Sidebar = () => {
               ))}
             </Box>
           </Box>
-          <List sx={{ display: 'flex', gap: '10%' }}>
-            <ListItem disablePadding>
-              <LinkIconStyled
-                target="_blank"
-                rel="nofollow"
-                to={SOCIAL_LINKS.FACEBOOK}
-              >
-                <FacebookIcon sx={{ fill: 'blue' }} />
-              </LinkIconStyled>
-            </ListItem>
-            <ListItem disablePadding>
-              <LinkIconStyled
-                target="_blank"
-                rel="nofollow"
-                to={SOCIAL_LINKS.INSTAGRAM}
-              >
-                <InstagramIcon sx={{ fill: 'orange' }} />
-              </LinkIconStyled>
-            </ListItem>
-          </List>
+          <SocialList />
         </Toolbar>
       </Container>
     </AppBar>
@@ -145,11 +122,4 @@ const LinkStyled = styled(Link)`
 `
 const LinkMobileStyled = styled(Link)`
   text-decoration: none;
-`
-
-const LinkIconStyled = styled(Link)`
-  display: flex;
-  &:hover {
-    scale: 1.3;
-  }
 `

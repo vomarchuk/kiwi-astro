@@ -2,6 +2,7 @@ import { Button, Grid2, Typography } from '@mui/material'
 import React from 'react'
 import { theme } from '../../theme'
 import styled from '@emotion/styled'
+import { ButtonReservation } from '../Buttons/ButtonReservation'
 export const Footer = () => {
   return (
     <Grid2
@@ -31,23 +32,12 @@ export const Footer = () => {
         </Typography>
       </Grid2>
       <Grid2 size={4}>
-        <Button
-          sx={{
-            border: '1px solid black',
-            color: 'white',
-            fontSize: '13px',
-            fontWeight: '600',
-          }}
-        >
-          Umów wizyte online
-        </Button>
+        <ButtonReservation />
       </Grid2>
       <Grid2 size={4}>
         <Typography variant="h6" sx={{ fontSize: '13px', fontWeight: '600' }}>
           CODZIENNIE
-        </Typography>
-        <Typography sx={{ fontSize: '11px', mt: '3px' }}>
-          9:00 - 20:00
+          <br /> 9:00 - 20:00
         </Typography>
       </Grid2>
     </Grid2>

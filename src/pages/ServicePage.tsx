@@ -13,7 +13,6 @@ import {
 } from '@mui/material'
 
 import { useQuery } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { useSearch } from '@tanstack/react-router'
 import { queryClientParams } from '../helpers/queryClientParams'
 
@@ -37,6 +36,7 @@ const MyComponent: React.FC = () => {
     <Container
       sx={{
         pt: '80px',
+        pb: '80px',
         textAlign: 'center',
         fontFamily: 'Raleway, sans-serif',
       }}
@@ -73,7 +73,6 @@ const MyComponent: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <ReactQueryDevtools client={queryClientParams} />
     </Container>
   )
 }

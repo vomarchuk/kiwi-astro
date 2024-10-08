@@ -7,7 +7,6 @@ import {
   Menu,
   MenuItem,
   AppBar,
-  Link,
   List,
   ListItem,
   IconButton,
@@ -22,7 +21,7 @@ import { SOCIAL_LINKS } from '../../constants/SOCIAL_LINKS'
 import { LogoType } from '../LogoType/LogoType'
 import { theme } from '../../theme'
 import { PAGES } from '../../constants/PAGES'
-
+import { Link } from '@tanstack/react-router'
 const Sidebar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) =>
@@ -73,14 +72,11 @@ const Sidebar = () => {
             >
               {PAGES.map((page) => (
                 <MenuItem key={page.id} onClick={handleCloseNavMenu}>
-                  <Link
-                    href={`/services?id=${page.id}`}
-                    sx={{ textDecoration: 'none', color: 'black' }}
-                  >
+                  <LinkStyled to={`/services?id=${page.id}`}>
                     <Typography sx={{ textAlign: 'center' }}>
                       {page.name}
                     </Typography>
-                  </Link>
+                  </LinkStyled>
                 </MenuItem>
               ))}
             </Menu>
@@ -90,52 +86,43 @@ const Sidebar = () => {
             <LogoType width={100} />
             <Box sx={{ display: 'flex', ml: '10px' }}>
               {PAGES.map((page) => (
-                <Button
+                <LinkMobileStyled
                   key={page.id}
                   onClick={handleCloseNavMenu}
-                  href={`/services?id=${page.id}`}
-                  sx={{
-                    my: 2,
-                    color: 'white',
-                    display: 'block',
-                    fontSize: { md: '10px', lg: '14px' },
-                  }}
+                  to={`/services?id=${page.id}`}
                 >
-                  {page.name}
-                </Button>
+                  <Button
+                    sx={{
+                      my: 2,
+                      display: 'block',
+                      color: 'white',
+                      fontSize: { md: '10px', lg: '14px' },
+                    }}
+                  >
+                    {page.name}
+                  </Button>
+                </LinkMobileStyled>
               ))}
             </Box>
           </Box>
           <List sx={{ display: 'flex', gap: '10%' }}>
             <ListItem disablePadding>
-              <Link
-                sx={{
-                  display: 'flex',
-                  '&:hover': {
-                    '&>svg': { fill: 'red' },
-                  },
-                }}
+              <LinkIconStyled
                 target="_blank"
                 rel="nofollow"
-                href={SOCIAL_LINKS.FACEBOOK}
+                to={SOCIAL_LINKS.FACEBOOK}
               >
                 <FacebookIcon sx={{ fill: 'blue' }} />
-              </Link>
+              </LinkIconStyled>
             </ListItem>
             <ListItem disablePadding>
-              <Link
-                sx={{
-                  display: 'flex',
-                  '&:hover': {
-                    '&>svg': { fill: 'red' },
-                  },
-                }}
+              <LinkIconStyled
                 target="_blank"
                 rel="nofollow"
-                href={SOCIAL_LINKS.INSTAGRAM}
+                to={SOCIAL_LINKS.INSTAGRAM}
               >
                 <InstagramIcon sx={{ fill: 'orange' }} />
-              </Link>
+              </LinkIconStyled>
             </ListItem>
           </List>
         </Toolbar>
@@ -150,4 +137,19 @@ const LogoTypeS = styled(LogoType)`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+`
+
+const LinkStyled = styled(Link)`
+  text-decoration: none;
+  color: black;
+`
+const LinkMobileStyled = styled(Link)`
+  text-decoration: none;
+`
+
+const LinkIconStyled = styled(Link)`
+  display: flex;
+  &:hover {
+    scale: 1.3;
+  }
 `

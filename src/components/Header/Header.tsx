@@ -1,9 +1,7 @@
 import React, { StrictMode } from 'react'
-import ReactDOM from 'react-dom/client'
 import {
   Outlet,
   RouterProvider,
-  Link,
   createRouter,
   createRoute,
   createRootRoute,
@@ -11,10 +9,9 @@ import {
 } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import ServicePage from '../../pages/ServicePage'
-import { PAGES } from '../../constants/PAGES'
 import Sidebar from '../Sidebar/Sidebar'
 
-export function TestRoutes() {
+export function Header() {
   return (
     <StrictMode>
       <RouterProvider router={router} />
@@ -22,19 +19,21 @@ export function TestRoutes() {
   )
 }
 
+// const rootRoute = createRootRoute({
+//   component: () => (
+//     <>
+//       <Sidebar />
+//       <Outlet />
+//       <TanStackRouterDevtools />
+//     </>
+//   ),
+// })
+
 const rootRoute = createRootRoute({
   component: () => (
     <>
-      <div className="p-2 flex gap-2">
-        {PAGES.map((page) => (
-          <Link key={page.id} to={`/services?id=${page.id}`}>
-            {page.name}
-          </Link>
-        ))}
-      </div>
-      <hr />
+      <Sidebar />
       <Outlet />
-      <TanStackRouterDevtools />
     </>
   ),
 })

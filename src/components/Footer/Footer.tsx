@@ -2,7 +2,7 @@ import { Button, Grid2, Typography } from '@mui/material'
 import React from 'react'
 import { theme } from '../../theme'
 import styled from '@emotion/styled'
-import { ButtonReservation } from '../Buttons/ButtonReservation'
+import { SocialList } from '../SocialList/SocialList'
 export const Footer = () => {
   return (
     <Grid2
@@ -10,7 +10,6 @@ export const Footer = () => {
       component="footer"
       sx={{
         backgroundColor: theme.accentColor,
-        p: '10px',
         m: '0',
         position: 'fixed',
         width: '100%',
@@ -21,25 +20,25 @@ export const Footer = () => {
         boxShadow: '0px 0px 4px 4px rgba(0, 0, 0, 0.3)',
       }}
     >
-      <Grid2 size={4}>
-        <Typography sx={{ fontSize: '10px', mt: '3px' }}>
+      <Grid2Styled size={4}>
+        <Typography sx={{ fontSize: '10px' }}>
           ul. Floriańska 6/u7
           <br />
           03-707, Warszawa
-          <br />
+        </Typography>
+      </Grid2Styled>
+      <Grid2Styled size={4}>
+        <Typography variant="h6" sx={{ fontSize: '12px', fontWeight: '600' }}>
           tel:
           <ContactLink href="tel:+48577205500"> +48 577 205 500</ContactLink>
         </Typography>
-      </Grid2>
-      <Grid2 size={4}>
-        <ButtonReservation />
-      </Grid2>
-      <Grid2 size={4}>
+      </Grid2Styled>
+      <Grid2Styled size={4}>
         <Typography variant="h6" sx={{ fontSize: '13px', fontWeight: '600' }}>
           CODZIENNIE
           <br /> 9:00 - 20:00
         </Typography>
-      </Grid2>
+      </Grid2Styled>
     </Grid2>
   )
 }
@@ -48,4 +47,9 @@ const ContactLink = styled.a`
   text-decoration: none;
   color: white;
   font-weight: bold;
+`
+const Grid2Styled = styled(Grid2)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `

@@ -1,30 +1,46 @@
-// // src/router.tsx
-// import { RouterProvider, createReactRouter } from '@tanstack/react-router'
-// import React from 'react'
-// import Sidebar from './components/Sidebar/Sidebar'
-// // import HomePage from './pages/HomePage'
-// import ServicesPage from './pages/ServicePage'
+import {
+  Outlet,
+  createRouter,
+  createRoute,
+  createRootRoute,
+} from '@tanstack/react-router'
+import Sidebar from './components/Sidebar/Sidebar'
+import ServicePage from './pages/ServicePage'
+const rootRoute = createRootRoute({
+  component: () => (
+    <>
+      <Sidebar />
+      <Outlet />
+    </>
+  ),
+})
 
-// const rootRoute = createRouteConfig({
-//   component: () => <Sidebar />,
-// })
+const indexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/',
+  component: function Index() {
+    return (
+      <div className="p-2">
+        <h3>Welcome Home!</h3>
+      </div>
+    )
+  },
+})
 
-// const homeRoute = rootRoute.createRoute({
-//   path: '/',
-//   // component: HomePage,
-// })
+const aboutRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/services',
+  component: function About() {
+    return <ServicePage />
+  },
+})
 
-// const servicesRoute = rootRoute.createRoute({
-//   path: '/services',
-//   component: ServicesPage,
-// })
+const routeTree = rootRoute.addChildren([indexRoute, aboutRoute])
 
-// const routeConfig = rootRoute.addChildren([homeRoute, servicesRoute])
+export const router = createRouter({ routeTree })
 
-// const router = createReactRouter({ routeConfig })
-
-// const Router: React.FC = () => {
-//   return <RouterProvider router={router} />
-// }
-
-// export default Router
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
+}

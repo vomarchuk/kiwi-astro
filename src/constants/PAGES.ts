@@ -23,4 +23,9 @@ export const PAGES = [
     name: 'Brwi / rzesy',
     id: '7IKnas48Kes3BUxo5ppv',
   },
+  {
+    name: 'SETY',
+    id: 'r7YDRd3CuVlsVLA2VOl7'
+  }
 ]
+

@@ -17,6 +17,7 @@ import { LogoType } from '../LogoType/LogoType'
 import { theme } from '../../theme'
 import { PAGES } from '../../constants/PAGES'
 import { Link } from '@tanstack/react-router'
+import { ButtonReservation } from '../Buttons/ButtonReservation'
 import { SocialList } from '../SocialList/SocialList'
 const Sidebar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
@@ -104,6 +105,7 @@ const Sidebar = () => {
           <SocialList />
         </Toolbar>
       </Container>
+      <ButtonReservation />
     </AppBar>
   )
 }

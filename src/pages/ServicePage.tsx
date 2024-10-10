@@ -15,7 +15,8 @@ import {
 import { useQuery } from '@tanstack/react-query'
 import { useSearch } from '@tanstack/react-router'
 import { queryClientParams } from '../helpers/queryClientParams'
-
+import styled from '@emotion/styled'
+import type { IService } from '../helpers/types'
 const MyComponent: React.FC = () => {
   const { id } = useSearch({ from: '/services' }) as any
   const { data: dataCategory } = useQuery<any>(
@@ -35,7 +36,7 @@ const MyComponent: React.FC = () => {
   return (
     <Container
       sx={{
-        pt: '80px',
+        pt: '100px',
         pb: '80px',
         textAlign: 'center',
         fontFamily: 'Raleway, sans-serif',
@@ -54,22 +55,28 @@ const MyComponent: React.FC = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell sx={{ width: '65%' }}>Usługa</TableCell>
-              <TableCell sx={{ width: '25%' }}>Cena</TableCell>
-              <TableCell sx={{ width: '10%' }}>Czas wykonania</TableCell>
+              <TableCallStyled sortDirection={'asc'} sx={{ width: '68%' }}>
+                Usługa
+              </TableCallStyled>
+              <TableCallStyled sx={{ width: '22%' }}>Cena</TableCallStyled>
+              <TableCallStyled sx={{ width: '10%' }}>
+                Czas wykonania
+              </TableCallStyled>
             </TableRow>
           </TableHead>
           <TableBody>
             {serviceData &&
-              serviceData.map((service: any) => {
-                return (
-                  <TableRow key={service.id}>
-                    <TableCell>{service.name}</TableCell>
-                    <TableCell>{service.price} zł</TableCell>
-                    <TableCell>{service.duration} min</TableCell>
-                  </TableRow>
-                )
-              })}
+              serviceData
+                .sort((a: any, b: any) => a.name.localeCompare(b.name))
+                .map((service: any) => {
+                  return (
+                    <TableRow key={service.id}>
+                      <TableCallStyled>{service.name}</TableCallStyled>
+                      <TableCallStyled>{service.price} zł</TableCallStyled>
+                      <TableCallStyled>{service.duration} min</TableCallStyled>
+                    </TableRow>
+                  )
+                })}
           </TableBody>
         </Table>
       </TableContainer>
@@ -78,3 +85,7 @@ const MyComponent: React.FC = () => {
 }
 
 export default MyComponent
+
+const TableCallStyled = styled(TableCell)`
+  padding: 15px 10px;
+`

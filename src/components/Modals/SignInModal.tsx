@@ -1,76 +1,41 @@
-import React from 'react'
-import {
-  Box,
-  Button,
-  Container,
-  InputLabel,
-  Modal,
-  TextField,
-} from '@mui/material'
-import { Controller, useForm } from 'react-hook-form'
-
-interface IInputs {
-  email: string
-  password: string
-}
-interface LoginFormProps {
-  onSubmit: any
-}
-
+import { Container, Modal } from '@mui/material'
+import { SignInForm } from '../Forms/SignInForm'
+import styled from '@emotion/styled'
+import { theme } from 'src/theme'
+import type { SubmitHandler } from 'react-hook-form'
+import { useState } from 'react'
+import { signInWithEmail } from 'src/api/userOperations'
 interface ISignInModal {
   open: boolean
   handleClose: () => void
 }
+interface IInputs {
+  email: string
+  password: string
+}
 export const SignInModal = ({ open, handleClose }: ISignInModal) => {
-  const {
-    control,
-    handleSubmit,
-    register,
-    formState: { isValid },
-  } = useForm<IInputs>()
-  const regex = /^[0-9a-zA-Z!@#$%^&*()-_+=,.<>:?/|[\]{}"'~`]*$/
+  const [loginErrors, setLoginErrors] = useState<string | null>(null)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  const onSubmit = async ({ email, password }: any) => {
-    console.log(email, password)
-  }
+  const onSubmit: SubmitHandler<IInputs> = async ({ email, password }) =>
+    signInWithEmail(email, password, setLoginErrors, setIsLoggedIn)
   return (
     <Modal open={open} onClose={handleClose}>
-      <Container>
-        <Box sx={{ backgroundColor: 'white', p: '50px' }}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Controller
-              name="email"
-              control={control}
-              rules={{
-                required: true,
-                pattern: {
-                  value: regex,
-                  message: 'Pole nie może zawierać specjalnych znaków',
-                },
-              }}
-              render={() => (
-                <Box>
-                  <InputLabel>Email</InputLabel>
-                  <TextField placeholder="email" {...register('email')} />
-                </Box>
-              )}
-            />
-            <Controller
-              name="password"
-              control={control}
-              render={() => (
-                <Box>
-                  <InputLabel>Hasło</InputLabel>
-                  <TextField placeholder="hasło" {...register('password')} />
-                </Box>
-              )}
-            />
-            <Button type="submit" disabled={!isValid}>
-              Zaloguj się
-            </Button>
-          </form>
-        </Box>
-      </Container>
+      <ContainerStyled>
+        <SignInForm onSubmit={onSubmit} />
+      </ContainerStyled>
     </Modal>
   )
 }
+
+const ContainerStyled = styled(Container)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0px 0px 10px ${theme.accentColor};
+  border-radius: 5px;
+`

@@ -19,16 +19,21 @@ import { PAGES } from '../../constants/PAGES'
 import { Link } from '@tanstack/react-router'
 import { ButtonReservation } from '../Buttons/ButtonReservation'
 import { SocialList } from '../SocialList/SocialList'
+import { SignInModal } from '../Modals/SignInModal'
 const Sidebar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
+  const [open, setOpen] = useState(false)
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) =>
     setAnchorElNav(event.currentTarget)
 
+  const handleOpenSignInModal = () => setOpen(true)
+  const handleCloseSignInModal = () => setOpen(false)
   const handleCloseNavMenu = () => setAnchorElNav(null)
 
   return (
     <AppBar position="fixed" sx={{ backgroundColor: `${theme.accentColor}` }}>
       <Container maxWidth="xl">
+        <SignInModal open={open} handleClose={handleCloseSignInModal} />
         <Toolbar disableGutters>
           <Box
             sx={{
@@ -77,10 +82,10 @@ const Sidebar = () => {
                 </MenuItem>
               ))}
             </Menu>
-            <LogoTypeS width={120} />
+            <LogoTypeS width={120} onClick={handleOpenSignInModal} />
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <LogoType width={100} />
+            <LogoType width={100} onClick={handleOpenSignInModal} />
             <Box sx={{ display: 'flex', ml: '10px' }}>
               {PAGES.map((page) => (
                 <LinkMobileStyled

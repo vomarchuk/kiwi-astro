@@ -24,7 +24,7 @@ export const PAGES = [
     id: '7IKnas48Kes3BUxo5ppv',
   },
   {
-    name: 'SETY',
+    name: 'Komplety',
     id: 'r7YDRd3CuVlsVLA2VOl7'
   }
 ]

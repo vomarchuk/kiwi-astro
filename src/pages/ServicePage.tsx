@@ -16,7 +16,6 @@ import { useQuery } from '@tanstack/react-query'
 import { useSearch } from '@tanstack/react-router'
 import { queryClientParams } from '../helpers/queryClientParams'
 import styled from '@emotion/styled'
-import type { IService } from '../helpers/types'
 const MyComponent: React.FC = () => {
   const { id } = useSearch({ from: '/services' }) as any
   const { data: dataCategory } = useQuery<any>(

@@ -1,9 +1,10 @@
 ---
-import Sidebar from '../components/Sidebar/Sidebar';
-
 interface Props {
 	title: string;
 }
+
+import { Header} from '../components/Header/Header'
+import {Footer} from '../components/Footer/Footer'
 
 const { title } = Astro.props;
 ---
@@ -17,13 +18,14 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&display=swap" />
 	</head>
 	<body>
-	<Sidebar client:only />
-
+  	<Header client:only="react"/>
 <main >
 	<slot />
 </main>
+<Footer client:only/>
 </body>
 </html>
 <style is:global>
@@ -38,9 +40,9 @@ const { title } = Astro.props;
 			white 60%
 		);
 	}
-	html {
-		font-family: system-ui, sans-serif;
-	}
+	body {
+				font-family: 'Raleway', sans-serif	
+			}
 	code {
 		font-family:
 			Menlo,

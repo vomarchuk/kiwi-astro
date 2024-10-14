@@ -1,9 +1,7 @@
 'use client'
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { doc, getDoc } from 'firebase/firestore'
-
 import { auth, firestore } from './firebaseConfig'
-// import { UserType } from "@/app/helpers/schemas"
 
 export const fetchUserData = async (userId: string) => {
   const usersDocRef = doc(firestore, 'users', userId)
@@ -17,11 +15,11 @@ export const signInWithEmail = (
   setLoginErrors: (n: string) => void,
   setIsLoggedIn: (n: boolean) => void
 ) => {
+
   return signInWithEmailAndPassword(auth, email, password)
     .then(async ({ user }) => {
       const token = await user.getIdToken()
       localStorage.setItem('token', token)
-      // const userData = await fetchUserData(user.uid)
       setIsLoggedIn(true)
     })
     .catch(({ code }) => {

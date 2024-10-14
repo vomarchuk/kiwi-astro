@@ -20,19 +20,13 @@ import { Link } from '@tanstack/react-router'
 import { ButtonReservation } from '../Buttons/ButtonReservation'
 import { SocialList } from '../SocialList/SocialList'
 import { SignInModal } from '../Modals/SignInModal'
-import {
-  fetchCurrentUser,
-  fetchUserData,
-  getCurrentUserUid,
-  logoutUser,
-} from 'src/api/userOperations'
-import { useQuery } from '@tanstack/react-query'
-import { queryClientParams } from 'src/helpers/queryClientParams'
+import { logoutUser } from 'src/api/userOperations'
+import { useQueryClient } from '@tanstack/react-query'
 const Sidebar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const [open, setOpen] = useState(false)
-  const [currentUserId, setCurrentUserId] = useState<any>()
   const [isLogoutUser, setIsLogoutUser] = useState<Boolean>(false)
+  const queryClient = useQueryClient()
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) =>
     setAnchorElNav(event.currentTarget)
@@ -41,24 +35,6 @@ const Sidebar = () => {
   const handleCloseSignInModal = () => setOpen(false)
   const handleCloseNavMenu = () => setAnchorElNav(null)
 
-  // console.log(currentUserId)
-
-  const { data: currentUserData } = useQuery(
-    {
-      queryKey: ['currentUser'],
-      queryFn: async () => await fetchUserData(currentUserId),
-    },
-    queryClientParams,
-  )
-  console.log(currentUserData)
-
-  useEffect(() => {
-    getCurrentUserUid().then((user) => {
-      if (user) {
-        setCurrentUserId(user)
-      }
-    })
-  }, [])
   return (
     <AppBar
       position="fixed"
@@ -143,7 +119,14 @@ const Sidebar = () => {
         </Toolbar>
       </Container>
       <ButtonReservation />
-      <Button onClick={() => logoutUser(setIsLogoutUser)}>logout</Button>
+      <Button
+        onClick={() => {
+          logoutUser(setIsLogoutUser)
+          // queryClient.clear()
+        }}
+      >
+        logout
+      </Button>
     </AppBar>
   )
 }

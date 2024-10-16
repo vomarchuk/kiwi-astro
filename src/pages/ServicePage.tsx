@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { fetchItem, fetchItemsById } from '../api/firebaseFunctions'
 import {
   Container,
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -11,13 +12,29 @@ import {
   TableRow,
   Typography,
 } from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useSearch } from '@tanstack/react-router'
 import { queryClientParams } from '../helpers/queryClientParams'
 import styled from '@emotion/styled'
+import { fetchUserData, getCurrentUserUid } from 'src/api/userOperations'
+import { theme } from 'src/theme'
 const MyComponent: React.FC = () => {
+  const [currentUserId, setCurrentUserId] = useState<any>()
+  const [currentUser, setCurrentUser] = useState<any>()
+  const queryClient = useQueryClient()
+
   const { id } = useSearch({ from: '/services' }) as any
+
+  const { data: dataCurrentUser } = useQuery(
+    {
+      queryKey: ['user'],
+      queryFn: async () => await fetchUserData(currentUserId),
+    },
+    queryClientParams,
+  )
   const { data: dataCategory } = useQuery<any>(
     {
       queryKey: ['categories', id],
@@ -32,8 +49,17 @@ const MyComponent: React.FC = () => {
     },
     queryClientParams,
   )
+  useEffect(() => {
+    getCurrentUserUid().then((user) => {
+      if (user) {
+        setCurrentUserId(user)
+      }
+    })
+  }, [])
+
   return (
     <Container
+      component={'main'}
       sx={{
         pt: '100px',
         pb: '80px',
@@ -61,6 +87,7 @@ const MyComponent: React.FC = () => {
               <TableCallStyled sx={{ width: '10%' }}>
                 Czas wykonania
               </TableCallStyled>
+              {dataCurrentUser && <TableCell>Edytuj</TableCell>}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -73,6 +100,40 @@ const MyComponent: React.FC = () => {
                       <TableCallStyled>{service.name}</TableCallStyled>
                       <TableCallStyled>{service.price} zł</TableCallStyled>
                       <TableCallStyled>{service.duration} min</TableCallStyled>
+                      {dataCurrentUser && (
+                        <TableCell sx={{ display: 'flex' }}>
+                          <IconButton
+                            aria-label="edit service"
+                            sx={{
+                              '&:hover': {
+                                '& > svg': {
+                                  fill: 'green',
+                                },
+                              },
+                            }}
+                            // onClick={() => editItemById(service.id)}
+                          >
+                            <EditIcon
+                              sx={{
+                                fill: `${theme.accentColor}`,
+                              }}
+                            />
+                          </IconButton>
+                          <IconButton
+                            sx={{
+                              '&:hover': {
+                                '& > svg': {
+                                  fill: 'tomato',
+                                },
+                              },
+                            }}
+                            aria-label="remove service"
+                            // onClick={() => removeItemById(service.id)}
+                          >
+                            <DeleteForeverIcon />
+                          </IconButton>
+                        </TableCell>
+                      )}
                     </TableRow>
                   )
                 })}

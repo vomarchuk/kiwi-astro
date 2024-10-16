@@ -6,11 +6,11 @@
     "dev": "astro dev --host",
     "start": "astro dev",
     "build": "astro check && astro build",
-    "preview": "astro preview",
+    "preview": "astro preview --host",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.3",
+    "@astrojs/check": "0.9.4",
     "@astrojs/react": "^3.6.2",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
@@ -22,11 +22,12 @@
     "@tanstack/router": "^0.0.1-beta.53",
     "@tanstack/router-devtools": "^1.58.18",
     "@tanstack/solid-query": "^5.59.0",
-    "astro": "^4.15.4",
+    "astro": "4.16.2",
     "dotenv": "^16.4.5",
     "firebase": "^10.13.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.0",
     "typescript": "^5.6.2",
     "vite": "^5.4.8"
   },

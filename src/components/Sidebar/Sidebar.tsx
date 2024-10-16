@@ -20,13 +20,9 @@ import { Link } from '@tanstack/react-router'
 import { ButtonReservation } from '../Buttons/ButtonReservation'
 import { SocialList } from '../SocialList/SocialList'
 import { SignInModal } from '../Modals/SignInModal'
-import { logoutUser } from 'src/api/userOperations'
-import { useQueryClient } from '@tanstack/react-query'
 const Sidebar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const [open, setOpen] = useState(false)
-  const [isLogoutUser, setIsLogoutUser] = useState<Boolean>(false)
-  const queryClient = useQueryClient()
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) =>
     setAnchorElNav(event.currentTarget)
@@ -119,14 +115,6 @@ const Sidebar = () => {
         </Toolbar>
       </Container>
       <ButtonReservation />
-      <Button
-        onClick={() => {
-          logoutUser(setIsLogoutUser)
-          // queryClient.clear()
-        }}
-      >
-        logout
-      </Button>
     </AppBar>
   )
 }

@@ -1,4 +1,4 @@
-import { Container, Modal } from '@mui/material'
+import { Button, Container, Modal } from '@mui/material'
 import { SignInForm } from '../Forms/SignInForm'
 import styled from '@emotion/styled'
 import { theme } from 'src/theme'
@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import {
   fetchUserData,
   getCurrentUserUid,
+  logoutUser,
   signInWithEmail,
 } from 'src/api/userOperations'
 import { useQueryClient } from '@tanstack/react-query'
@@ -19,8 +20,11 @@ interface IInputs {
   password: string
 }
 export const SignInModal = ({ open, handleClose }: ISignInModal) => {
+  const token = localStorage.getItem('token')
   const [loginErrors, setLoginErrors] = useState<string | null>(null)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLogoutUser, setIsLogoutUser] = useState<Boolean>(false)
+
   const [currentUserId, setCurrentUserId] = useState<any>()
 
   const queryClient = useQueryClient()
@@ -28,6 +32,7 @@ export const SignInModal = ({ open, handleClose }: ISignInModal) => {
     signInWithEmail(email, password, setLoginErrors, setIsLoggedIn)
     handleClose()
   }
+
   if (currentUserId) {
     fetchUserData(currentUserId).then((data) => {
       queryClient.setQueryData(['user'], data)
@@ -43,7 +48,19 @@ export const SignInModal = ({ open, handleClose }: ISignInModal) => {
   return (
     <Modal open={open} onClose={handleClose}>
       <ContainerStyled>
-        <SignInForm onSubmit={onSubmit} />
+        {token ? (
+          <Button
+            onClick={() => {
+              logoutUser(setIsLogoutUser)
+              queryClient.setQueryData(['user'], null)
+              handleClose()
+            }}
+          >
+            Logout
+          </Button>
+        ) : (
+          <SignInForm onSubmit={onSubmit} />
+        )}
       </ContainerStyled>
     </Modal>
   )

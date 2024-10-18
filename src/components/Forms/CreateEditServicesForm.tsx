@@ -1,7 +1,7 @@
 'use client'
 import type { CategoryType, ServiceType } from '../../helpers/schemas'
 import { Box, Button, InputLabel, TextField } from '@mui/material'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { v4 as uuidv4 } from 'uuid'
 import { addNewItem, EditItemById, fetchItems } from 'src/api/firebaseFunctions'
@@ -16,7 +16,7 @@ interface ICreateServiceForm {
 
 export const CreateEditServiceForm = ({
   handleCloseModal,
-  editServiceId = null,
+  editServiceId,
 }: ICreateServiceForm) => {
   const { register, handleSubmit, reset, control } = useForm<ServiceType>({
     defaultValues: {
@@ -29,7 +29,6 @@ export const CreateEditServiceForm = ({
   })
   const queryClient = useQueryClient()
   const categoryId = getQueryParam('id')
-
   const { data: dataCategories } = useQuery<CategoryType[]>({
     queryKey: ['categories'],
     queryFn: async () => await fetchItems('categories'),
@@ -59,6 +58,7 @@ export const CreateEditServiceForm = ({
     handleCloseModal()
     queryClient.invalidateQueries({ queryKey: ['services'] })
   }
+
   useEffect(() => {
     const serviceData =
       dataServices &&
@@ -66,7 +66,7 @@ export const CreateEditServiceForm = ({
     if (serviceData) {
       reset(serviceData)
     }
-  }, [editServiceId, reset])
+  }, [dataServices, reset])
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Controller

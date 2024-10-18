@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from '@emotion/styled'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { theme } from 'src/theme'

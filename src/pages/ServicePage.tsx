@@ -70,6 +70,7 @@ const MyComponent: React.FC = () => {
     },
     queryClientParams,
   )
+
   useEffect(() => {
     getCurrentUserUid().then((user) => {
       if (user) {

@@ -1,5 +1,5 @@
 // src/components/Sidebar.jsx
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import {
   Button,

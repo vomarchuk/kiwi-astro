@@ -21,10 +21,8 @@ interface IInputs {
 }
 export const SignInModal = ({ open, handleClose }: ISignInModal) => {
   const token = localStorage.getItem('token')
-  const [loginErrors, setLoginErrors] = useState<string | null>(null)
+  const [_, setLoginErrors] = useState<string | null>(null)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [isLogoutUser, setIsLogoutUser] = useState<Boolean>(false)
-
   const [currentUserId, setCurrentUserId] = useState<any>()
 
   const queryClient = useQueryClient()
@@ -34,9 +32,9 @@ export const SignInModal = ({ open, handleClose }: ISignInModal) => {
   }
 
   if (currentUserId) {
-    fetchUserData(currentUserId).then((data) => {
-      queryClient.setQueryData(['user'], data)
-    })
+    fetchUserData(currentUserId).then((data) =>
+      queryClient.setQueryData(['user'], data),
+    )
   }
 
   useEffect(() => {
@@ -51,7 +49,7 @@ export const SignInModal = ({ open, handleClose }: ISignInModal) => {
         {token ? (
           <Button
             onClick={() => {
-              logoutUser(setIsLogoutUser)
+              logoutUser()
               queryClient.setQueryData(['user'], null)
               handleClose()
             }}

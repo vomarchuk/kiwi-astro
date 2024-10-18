@@ -48,14 +48,13 @@ export const signInWithEmail = (
     })
 }
 
-export const logoutUser = async (setIsLogout: (n: boolean) => void) => {
+export const logoutUser = async () => {
   try {
     const storedToken = localStorage.getItem('token')
     if (!storedToken) throw new Error("Error while removing the token from storage")
     const auth = getAuth()
     await signOut(auth)
     localStorage.removeItem('token')
-    setIsLogout(true)
   } catch (error) {
     console.error('Error during logging out from Firebase:', error)
     throw error

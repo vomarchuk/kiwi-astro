@@ -3,6 +3,8 @@ import { fetchItem, fetchItemsById, removeItem } from '../api/firebaseFunctions'
 import {
   Container,
   IconButton,
+  Menu,
+  MenuItem,
   Paper,
   Table,
   TableBody,
@@ -14,7 +16,6 @@ import {
 } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useSearch } from '@tanstack/react-router'
 import { queryClientParams } from '../helpers/queryClientParams'
@@ -23,30 +24,44 @@ import { fetchUserData, getCurrentUserUid } from 'src/api/userOperations'
 import { theme } from 'src/theme'
 import { AddIconButton } from 'src/components/Buttons/AddIconButton'
 import { CreateEditServicesModal } from 'src/components/Modals/CreateEditServicesModal'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
+
 const MyComponent: React.FC = () => {
   const { id } = useSearch({ from: '/services' }) as any
   const [currentUserId, setCurrentUserId] = useState<any>()
-  const [currentUser, setCurrentUser] = useState<any>()
   const queryClient = useQueryClient()
   const [open, setOpen] = useState(false)
-  const [editItemId, setEditItemId] = useState<null | string>(null)
+  const [editItemId, setEditItemId] = useState<any>(null)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-
   const handleClickOpen = () => setOpen(true)
   const handleClose = () => {
     setOpen(false)
     setEditItemId(null)
   }
-
-  const editItemById = (serviceId: string) => {
+  const openOptionsMenu = Boolean(anchorEl)
+  const handleOpenSelectionsMenu = (
+    event: React.MouseEvent<HTMLElement>,
+    itemId: string,
+  ) => {
+    setEditItemId(itemId)
+    setAnchorEl(event.currentTarget)
+  }
+  const handleCloseSelectionsMenu = () => {
     setAnchorEl(null)
-    setEditItemId(serviceId)
+    setEditItemId(null)
+  }
+
+  const editItemById = () => {
+    setAnchorEl(null)
     handleClickOpen()
   }
-  const removeItemById = (serviceId: string) => {
-    removeItem('services', serviceId)
+  const removeItemById = () => {
+    console.log(editItemId)
+
+    removeItem('services', editItemId)
     queryClient.invalidateQueries({ queryKey: ['services'] })
-    handleClose()
+    setAnchorEl(null)
+    setEditItemId(null)
   }
 
   const { data: dataCurrentUser } = useQuery(
@@ -115,7 +130,7 @@ const MyComponent: React.FC = () => {
               <TableCallStyled sx={{ width: '10%' }}>
                 Czas wykonania
               </TableCallStyled>
-              {dataCurrentUser && <TableCell>Edytuj</TableCell>}
+              {dataCurrentUser && <TableCallStyled>Edytuj</TableCallStyled>}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -129,37 +144,52 @@ const MyComponent: React.FC = () => {
                       <TableCallStyled>{service.price} zł</TableCallStyled>
                       <TableCallStyled>{service.duration} min</TableCallStyled>
                       {dataCurrentUser && (
-                        <TableCallStyled sx={{ display: 'flex' }}>
+                        <TableCallStyled
+                          sx={{ display: 'flex', height: '100px' }}
+                        >
                           <IconButton
-                            aria-label="edit service"
-                            sx={{
-                              '&:hover': {
-                                '& > svg': {
-                                  fill: 'green',
+                            aria-label="more"
+                            id="long-button"
+                            aria-controls={
+                              openOptionsMenu ? 'long-menu' : undefined
+                            }
+                            aria-expanded={openOptionsMenu ? 'true' : undefined}
+                            aria-haspopup="true"
+                            onClick={(e) => {
+                              handleOpenSelectionsMenu(e, service.id)
+                            }}
+                          >
+                            <MoreVertIcon />
+                          </IconButton>
+                          <Menu
+                            open={openOptionsMenu}
+                            onClose={handleCloseSelectionsMenu}
+                            anchorEl={anchorEl}
+                            slotProps={{
+                              paper: {
+                                style: {
+                                  width: '20ch',
                                 },
                               },
                             }}
-                            onClick={() => editItemById(service.id)}
                           >
-                            <EditIcon
-                              sx={{
-                                fill: `${theme.accentColor}`,
-                              }}
-                            />
-                          </IconButton>
-                          <IconButton
-                            sx={{
-                              '&:hover': {
-                                '& > svg': {
-                                  fill: 'tomato',
-                                },
-                              },
-                            }}
-                            aria-label="remove service"
-                            onClick={() => removeItemById(service.id)}
-                          >
-                            <DeleteForeverIcon />
-                          </IconButton>
+                            <MenuItem>
+                              <IconButtonEdit
+                                aria-label="edit service"
+                                onClick={editItemById}
+                              >
+                                <EditIcon />
+                              </IconButtonEdit>
+                            </MenuItem>
+                            <MenuItem>
+                              <IconButtonRemove
+                                aria-label="remove service"
+                                onClick={removeItemById}
+                              >
+                                <DeleteForeverIcon />
+                              </IconButtonRemove>
+                            </MenuItem>
+                          </Menu>
                         </TableCallStyled>
                       )}
                     </TableRow>
@@ -176,4 +206,21 @@ export default MyComponent
 
 const TableCallStyled = styled(TableCell)`
   padding: 15px 10px;
+`
+const IconButtonRemove = styled(IconButton)`
+  &:hover {
+    & > svg {
+      fill: tomato;
+    }
+  }
+`
+const IconButtonEdit = styled(IconButton)`
+  & > svg {
+    fill: ${theme.accentColor};
+  }
+  &:hover {
+    & > svg {
+      fill: tomato;
+    }
+  }
 `

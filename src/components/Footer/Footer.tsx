@@ -1,8 +1,6 @@
-import { Button, Grid2, Typography } from '@mui/material'
-import React from 'react'
+import { Grid2, Typography } from '@mui/material'
 import { theme } from '../../theme'
 import styled from '@emotion/styled'
-import { SocialList } from '../SocialList/SocialList'
 export const Footer = () => {
   return (
     <Grid2

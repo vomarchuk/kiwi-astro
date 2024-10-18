@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { fetchItem, fetchItemsById } from '../api/firebaseFunctions'
+import { fetchItem, fetchItemsById, removeItem } from '../api/firebaseFunctions'
 import {
   Container,
   IconButton,
@@ -21,12 +21,33 @@ import { queryClientParams } from '../helpers/queryClientParams'
 import styled from '@emotion/styled'
 import { fetchUserData, getCurrentUserUid } from 'src/api/userOperations'
 import { theme } from 'src/theme'
+import { AddIconButton } from 'src/components/Buttons/AddIconButton'
+import { CreateEditServicesModal } from 'src/components/Modals/CreateEditServicesModal'
 const MyComponent: React.FC = () => {
+  const { id } = useSearch({ from: '/services' }) as any
   const [currentUserId, setCurrentUserId] = useState<any>()
   const [currentUser, setCurrentUser] = useState<any>()
   const queryClient = useQueryClient()
+  const [open, setOpen] = useState(false)
+  const [editItemId, setEditItemId] = useState<null | string>(null)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
-  const { id } = useSearch({ from: '/services' }) as any
+  const handleClickOpen = () => setOpen(true)
+  const handleClose = () => {
+    setOpen(false)
+    setEditItemId(null)
+  }
+
+  const editItemById = (serviceId: string) => {
+    setAnchorEl(null)
+    setEditItemId(serviceId)
+    handleClickOpen()
+  }
+  const removeItemById = (serviceId: string) => {
+    removeItem('services', serviceId)
+    queryClient.invalidateQueries({ queryKey: ['services'] })
+    handleClose()
+  }
 
   const { data: dataCurrentUser } = useQuery(
     {
@@ -75,7 +96,13 @@ const MyComponent: React.FC = () => {
           {dataCategory.name}
         </Typography>
       )}
-
+      {dataCurrentUser && <AddIconButton onClick={handleClickOpen} />}
+      <CreateEditServicesModal
+        open={open}
+        handleClose={handleClose}
+        title={'test'}
+        editItemId={editItemId}
+      />
       <TableContainer component={Paper} sx={{ mt: '15px' }}>
         <Table>
           <TableHead>
@@ -101,7 +128,7 @@ const MyComponent: React.FC = () => {
                       <TableCallStyled>{service.price} zł</TableCallStyled>
                       <TableCallStyled>{service.duration} min</TableCallStyled>
                       {dataCurrentUser && (
-                        <TableCell sx={{ display: 'flex' }}>
+                        <TableCallStyled sx={{ display: 'flex' }}>
                           <IconButton
                             aria-label="edit service"
                             sx={{
@@ -111,7 +138,7 @@ const MyComponent: React.FC = () => {
                                 },
                               },
                             }}
-                            // onClick={() => editItemById(service.id)}
+                            onClick={() => editItemById(service.id)}
                           >
                             <EditIcon
                               sx={{
@@ -128,11 +155,11 @@ const MyComponent: React.FC = () => {
                               },
                             }}
                             aria-label="remove service"
-                            // onClick={() => removeItemById(service.id)}
+                            onClick={() => removeItemById(service.id)}
                           >
                             <DeleteForeverIcon />
                           </IconButton>
-                        </TableCell>
+                        </TableCallStyled>
                       )}
                     </TableRow>
                   )

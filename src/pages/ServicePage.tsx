@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { fetchItem, fetchItemsById, removeItem } from '../api/firebaseFunctions'
 import {
+  Button,
   Container,
-  IconButton,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  Fab,
   Menu,
   MenuItem,
   Paper,
@@ -25,13 +29,16 @@ import { theme } from 'src/theme'
 import { AddIconButton } from 'src/components/Buttons/AddIconButton'
 import { CreateEditServicesModal } from 'src/components/Modals/CreateEditServicesModal'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
+import AddIcon from '@mui/icons-material/Add'
 
 const MyComponent: React.FC = () => {
   const { id } = useSearch({ from: '/services' }) as any
   const [currentUserId, setCurrentUserId] = useState<any>()
   const queryClient = useQueryClient()
   const [open, setOpen] = useState(false)
+  const [openDialog, setOpenDialog] = useState(false)
   const [editItemId, setEditItemId] = useState<any>(null)
+  const [currentRemoveItem, setCurrentRemoveItem] = useState<any>(null)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const handleClickOpen = () => setOpen(true)
   const handleClose = () => {
@@ -50,16 +57,24 @@ const MyComponent: React.FC = () => {
     setAnchorEl(null)
     setEditItemId(null)
   }
+  const handleClickOpenDialog = () => {
+    const findRemoveItem = serviceData?.find(
+      (item: any) => item.id === editItemId,
+    )
+    setCurrentRemoveItem(findRemoveItem)
+    setOpenDialog(true)
+  }
+  const handleClickCloseDialog = () => setOpenDialog(false)
 
   const editItemById = () => {
     setAnchorEl(null)
     handleClickOpen()
   }
   const removeItemById = () => {
-    console.log(editItemId)
-
     removeItem('services', editItemId)
     queryClient.invalidateQueries({ queryKey: ['services'] })
+    setCurrentRemoveItem(null)
+    setOpenDialog(false)
     setAnchorEl(null)
     setEditItemId(null)
   }
@@ -113,12 +128,14 @@ const MyComponent: React.FC = () => {
         </Typography>
       )}
       {dataCurrentUser && <AddIconButton onClick={handleClickOpen} />}
-      <CreateEditServicesModal
-        open={open}
-        handleClose={handleClose}
-        title={'test'}
-        editItemId={editItemId}
-      />
+      {dataCategory && (
+        <CreateEditServicesModal
+          open={open}
+          handleClose={handleClose}
+          title={dataCategory.name}
+          editItemId={editItemId}
+        />
+      )}
       <TableContainer component={Paper} sx={{ mt: '15px' }}>
         <Table>
           <TableHead>
@@ -145,9 +162,12 @@ const MyComponent: React.FC = () => {
                       <TableCallStyled>{service.duration} min</TableCallStyled>
                       {dataCurrentUser && (
                         <TableCallStyled
-                          sx={{ display: 'flex', height: '100px' }}
+                          sx={{
+                            display: 'table-cell',
+                            alignItems: 'center',
+                          }}
                         >
-                          <IconButton
+                          <Fab
                             aria-label="more"
                             id="long-button"
                             aria-controls={
@@ -160,7 +180,7 @@ const MyComponent: React.FC = () => {
                             }}
                           >
                             <MoreVertIcon />
-                          </IconButton>
+                          </Fab>
                           <Menu
                             open={openOptionsMenu}
                             onClose={handleCloseSelectionsMenu}
@@ -168,27 +188,58 @@ const MyComponent: React.FC = () => {
                             slotProps={{
                               paper: {
                                 style: {
-                                  width: '20ch',
+                                  backgroundColor: 'transparent',
+                                  boxShadow: 'none',
                                 },
                               },
                             }}
                           >
-                            <MenuItem>
-                              <IconButtonEdit
-                                aria-label="edit service"
+                            <MenuItemStyled disableGutters>
+                              <Fab
+                                color="primary"
+                                aria-label="edit"
                                 onClick={editItemById}
+                                sx={{ boxShadow: 'none' }}
                               >
                                 <EditIcon />
-                              </IconButtonEdit>
-                            </MenuItem>
-                            <MenuItem>
-                              <IconButtonRemove
-                                aria-label="remove service"
-                                onClick={removeItemById}
+                              </Fab>
+                            </MenuItemStyled>
+                            <MenuItemStyled
+                              disableGutters
+                              sx={{
+                                marginTop: '5px',
+                              }}
+                            >
+                              <Fab
+                                color="error"
+                                aria-label="remove"
+                                onClick={handleClickOpenDialog}
+                                sx={{ boxShadow: 'none' }}
                               >
                                 <DeleteForeverIcon />
-                              </IconButtonRemove>
-                            </MenuItem>
+                              </Fab>
+                            </MenuItemStyled>
+                            <Dialog
+                              open={openDialog}
+                              // TransitionComponent={Transition}
+                              keepMounted
+                              onClose={handleClose}
+                              aria-describedby="alert-dialog-slide-description"
+                            >
+                              <DialogTitle>
+                                Czy na pewno chcesz usunąć:{' '}
+                                <Span>
+                                  {currentRemoveItem && currentRemoveItem.name}
+                                </Span>
+                                ?
+                              </DialogTitle>
+                              <DialogActions>
+                                <Button onClick={handleClickCloseDialog}>
+                                  Nie
+                                </Button>
+                                <Button onClick={removeItemById}>Tak</Button>
+                              </DialogActions>
+                            </Dialog>
                           </Menu>
                         </TableCallStyled>
                       )}
@@ -206,21 +257,15 @@ export default MyComponent
 
 const TableCallStyled = styled(TableCell)`
   padding: 15px 10px;
+  min-height: 50px;
 `
-const IconButtonRemove = styled(IconButton)`
-  &:hover {
-    & > svg {
-      fill: tomato;
-    }
-  }
+const Span = styled.span`
+  color: red;
+  font-weight: bold;
 `
-const IconButtonEdit = styled(IconButton)`
-  & > svg {
-    fill: ${theme.accentColor};
-  }
-  &:hover {
-    & > svg {
-      fill: tomato;
-    }
-  }
+const MenuItemStyled = styled(MenuItem)`
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  padding: 0px;
 `

@@ -1,6 +1,8 @@
 import { Box, Button, InputLabel, TextField } from '@mui/material'
 import { Controller, useForm } from 'react-hook-form'
 import { REGEX_EMAIL } from '../../constants/REGEX'
+import styled from '@emotion/styled'
+import { theme } from 'src/theme'
 interface IInputs {
   email: string
   password: string
@@ -29,25 +31,47 @@ export const SignInForm = ({ onSubmit }: LoginFormProps) => {
           },
         }}
         render={() => (
-          <Box>
+          <BoxStyled>
             <InputLabel>Email</InputLabel>
-            <TextField placeholder="email" {...register('email')} />
-          </Box>
+            <TextFieldStyled placeholder="email" {...register('email')} />
+          </BoxStyled>
         )}
       />
       <Controller
         name="password"
         control={control}
         render={() => (
-          <Box>
+          <BoxStyled>
             <InputLabel>Hasło</InputLabel>
-            <TextField placeholder="hasło" {...register('password')} />
-          </Box>
+            <TextFieldStyled placeholder="hasło" {...register('password')} />
+          </BoxStyled>
         )}
       />
-      <Button type="submit" disabled={!isValid}>
+      <SignInButton type="submit" disabled={!isValid}>
         Zaloguj się
-      </Button>
+      </SignInButton>
     </form>
   )
 }
+const BoxStyled = styled(Box)`
+  margin-top: 10px;
+`
+const TextFieldStyled = styled(TextField)`
+  width: 100%;
+`
+
+const SignInButton = styled(Button)`
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 10px;
+  background-color: ${theme.accentColor};
+  color: white;
+  &:hover {
+    background-color: green;
+  }
+  :disabled {
+    background-color: grey;
+  }
+`

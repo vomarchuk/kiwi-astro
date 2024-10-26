@@ -47,7 +47,7 @@ export const SignInModal = ({ open, handleClose }: ISignInModal) => {
     <Modal open={open} onClose={handleClose}>
       <ContainerStyled>
         {token ? (
-          <Button
+          <LogoutButton
             onClick={() => {
               logoutUser()
               queryClient.setQueryData(['user'], null)
@@ -55,7 +55,7 @@ export const SignInModal = ({ open, handleClose }: ISignInModal) => {
             }}
           >
             Logout
-          </Button>
+          </LogoutButton>
         ) : (
           <SignInForm onSubmit={onSubmit} />
         )}
@@ -74,4 +74,18 @@ const ContainerStyled = styled(Container)`
   background-color: white;
   box-shadow: 0px 0px 10px ${theme.accentColor};
   border-radius: 5px;
+`
+const LogoutButton = styled(Button)`
+  width: 100%;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 10px;
+  background-color: ${theme.accentColor};
+  color: white;
+  &:hover {
+    background-color: green;
+  }
+  :disabled {
+    background-color: grey;
+  }
 `

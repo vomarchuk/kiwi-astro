@@ -22,10 +22,19 @@ export const CreateEditServicesModal = ({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <ContainerStyled>
+      <ContainerStyled
+        sx={{
+          maxHeight: { xs: '60vh', md: '80vh' },
+        }}
+      >
         <HeaderContainerStyled>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Dodaj usługe do kategorii {title?.toLowerCase()}
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            sx={{ textAlign: 'center' }}
+          >
+            Dodaj usługe do kategorii {title?.toLocaleUpperCase()}
           </Typography>
           <CloseIconButton onClick={handleClose} />
         </HeaderContainerStyled>
@@ -43,10 +52,12 @@ const ContainerStyled = styled(Box)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
-  padding: 20px;
+  width: 350px;
+  padding: 25px;
   background-color: white;
   box-shadow: 10px 0px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  overflow-y: auto;
 `
 const HeaderContainerStyled = styled(Box)`
   display: flex;

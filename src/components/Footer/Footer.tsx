@@ -1,36 +1,39 @@
 import { Grid2, Typography } from '@mui/material'
 import { theme } from '../../theme'
 import styled from '@emotion/styled'
+import { SocialList } from '../SocialList/SocialList'
 export const Footer = () => {
   return (
     <Grid2
       container
       component="footer"
       sx={{
-        backgroundColor: theme.accentColor,
+        backgroundColor: theme.footerBgColor,
         m: '0',
         position: 'fixed',
         width: '100%',
         bottom: '0',
         left: '0',
         textAlign: 'center',
-        color: 'white',
-        boxShadow: '0px 0px 4px 4px rgba(0, 0, 0, 0.3)',
+        color: theme.accentColor,
+        padding: '10px 0px',
         zIndex: '9999',
+        alignItems: 'flex-start',
       }}
     >
       <Grid2Styled size={4}>
-        <Typography sx={{ fontSize: '10px' }}>
+        <Typography sx={{ fontSize: '13px' }}>
           ul. Floriańska 6/u7
           <br />
           03-707, Warszawa
         </Typography>
       </Grid2Styled>
       <Grid2Styled size={4}>
-        <Typography variant="h6" sx={{ fontSize: '12px', fontWeight: '600' }}>
+        <Typography variant="h6" sx={{ fontSize: '14px', fontWeight: '600' }}>
           tel:
           <ContactLink href="tel:+48577205500"> +48 577 205 500</ContactLink>
         </Typography>
+        <SocialList />
       </Grid2Styled>
       <Grid2Styled size={4}>
         <Typography variant="h6" sx={{ fontSize: '13px', fontWeight: '600' }}>
@@ -46,9 +49,11 @@ const ContactLink = styled.a`
   text-decoration: none;
   color: white;
   font-weight: bold;
+  color: ${theme.accentColor};
 `
 const Grid2Styled = styled(Grid2)`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `

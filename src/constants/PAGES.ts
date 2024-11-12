@@ -8,16 +8,24 @@ export const PAGES = [
     id: '48AGR5DdAwE7mcElvWXg',
   },
   {
+    name: 'Depilacja woskiem miękkim',
+    id: 'hrGLGqf4j0KLUoFwZVS0',
+  },
+  {
+    name: 'Depilacja pastą cukrową',
+    id: 'XvRJpq1wKPE6E11jOSrU',
+  },
+  {
+    name: 'Depilacja laserowa',
+    id: 'BNAEp1L5eTxoLatLJpBM',
+  },
+  {
     name: 'Zabiegi na twarz',
     id: '4UeXBlIEcT2PvQMzOsdt',
   },
   {
     name: 'Medycyna estetyczna',
     id: 'WSdqNQJdwoc7Wfw0fhUb',
-  },
-  {
-    name: 'Depilacja woskiem miękkim',
-    id: 'hrGLGqf4j0KLUoFwZVS0',
   },
   {
     name: 'Brwi / rzesy',

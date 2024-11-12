@@ -25,11 +25,9 @@ import { useSearch } from '@tanstack/react-router'
 import { queryClientParams } from '../helpers/queryClientParams'
 import styled from '@emotion/styled'
 import { fetchUserData, getCurrentUserUid } from 'src/api/userOperations'
-import { theme } from 'src/theme'
 import { AddIconButton } from 'src/components/Buttons/AddIconButton'
 import { CreateEditServicesModal } from 'src/components/Modals/CreateEditServicesModal'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import AddIcon from '@mui/icons-material/Add'
 
 const MyComponent: React.FC = () => {
   const { id } = useSearch({ from: '/services' }) as any

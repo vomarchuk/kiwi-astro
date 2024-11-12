@@ -23,7 +23,6 @@ import { SignInModal } from '../Modals/SignInModal'
 const Sidebar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const [open, setOpen] = useState(false)
-
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) =>
     setAnchorElNav(event.currentTarget)
 
@@ -90,7 +89,13 @@ const Sidebar = () => {
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <LogoType width={100} onClick={handleOpenSignInModal} />
-            <Box sx={{ display: 'flex', ml: '10px' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                ml: '10px',
+                alignItems: 'center',
+              }}
+            >
               {PAGES.map((page) => (
                 <LinkMobileStyled
                   key={page.id}
@@ -102,7 +107,7 @@ const Sidebar = () => {
                       my: 2,
                       display: 'block',
                       color: 'white',
-                      fontSize: { md: '10px', lg: '14px' },
+                      fontSize: { md: '8px', lg: '11px' },
                     }}
                   >
                     {page.name}

@@ -9,6 +9,7 @@ import ServicePage from './pages/ServicePage'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { queryClientParams } from './helpers/queryClientParams'
 import { QueryClientProvider } from '@tanstack/react-query'
+import HomePage from './pages/HomePage'
 const rootRoute = createRootRoute({
   component: () => (
     <QueryClientProvider client={queryClientParams}>
@@ -23,11 +24,7 @@ const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
   component: function Index() {
-    return (
-      <div className="p-2">
-        <h3>Welcome Home!</h3>
-      </div>
-    )
+    return <HomePage />
   },
 })
 

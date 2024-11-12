@@ -15,10 +15,10 @@ export const PAGES = [
     name: 'Depilacja pastą cukrową',
     id: 'XvRJpq1wKPE6E11jOSrU',
   },
-  {
-    name: 'Depilacja laserowa',
-    id: 'BNAEp1L5eTxoLatLJpBM',
-  },
+  // {
+  //   name: 'Depilacja laserowa',
+  //   id: 'BNAEp1L5eTxoLatLJpBM',
+  // },
   {
     name: 'Zabiegi na twarz',
     id: '4UeXBlIEcT2PvQMzOsdt',

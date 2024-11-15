@@ -33,7 +33,6 @@ export const Footer = () => {
           tel:
           <ContactLink href="tel:+48577205500"> +48 577 205 500</ContactLink>
         </Typography>
-        <SocialList />
       </Grid2Styled>
       <Grid2Styled size={4}>
         <Typography variant="h6" sx={{ fontSize: '13px', fontWeight: '600' }}>

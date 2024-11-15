@@ -12,10 +12,12 @@ export const ButtonReservation = () => (
 )
 
 const ReservationButtonStyled = styled(Button)`
-  width: 100%;
+  max-width: 300px;
+  padding: 12px 30px;
+  font-weight: bold;
   font-size: 13px;
-  color: black;
-  border-radius: 0;
+  color: white;
+  border-radius: 5px;
   font-weight: 600;
-  background-color: ${theme.accentColorLight};
+  background-color: ${theme.accentColor};
 `

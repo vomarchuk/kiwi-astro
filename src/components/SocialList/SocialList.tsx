@@ -1,15 +1,23 @@
 import { SOCIAL_LINKS } from '../../constants/SOCIAL_LINKS'
 import styled from '@emotion/styled'
-import FacebookIcon from '@mui/icons-material/Facebook'
+import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import { List, ListItem, Link } from '@mui/material'
 
-export const SocialList = () => (
+interface IProps {
+  flexDirection: 'row' | 'column'
+}
+export const SocialList = ({ flexDirection }: IProps) => (
   <List
     sx={{
       display: 'inline-flex',
+      flexDirection: `${flexDirection}`,
       gap: '10px',
       p: '0',
+      position: 'absolute',
+      left: '50%',
+      top: '50%',
+      transform: 'translate(-50%, -50%)',
     }}
   >
     <ListItem disablePadding>
@@ -19,10 +27,12 @@ export const SocialList = () => (
         href={SOCIAL_LINKS.FACEBOOK}
         aria-label="facebook icon"
       >
-        <FacebookIcon sx={{ fill: '#0866FF', width: '36px', height: '36px' }} />
+        <FacebookOutlinedIcon
+          sx={{ fill: '#0866FF', width: '36px', height: '36px' }}
+        />
       </LinkIconStyled>
     </ListItem>
-    <ListItem disablePadding>
+    <ListItem disablePadding sx={{ justifyContent: 'center' }}>
       <LinkIconInstagramStyled
         target="_blank"
         rel="nofollow"

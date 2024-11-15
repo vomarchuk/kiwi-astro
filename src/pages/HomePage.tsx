@@ -5,8 +5,8 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 // import { EffectCards } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/effect-cards'
-import styled from '@emotion/styled'
 import { Header } from 'src/components/Header/Header'
+import { Main } from 'src/components/Main/Main'
 const HomePage = () => {
   // const images = [
   //   { id: 1, src: 'src/assets/images/DSC00197.webp', title: 'Image 1' },
@@ -17,6 +17,7 @@ const HomePage = () => {
   return (
     <>
       <Header />
+      <Main />
       {/* <SwiperContainer
         effect={'cards'}
         grabCursor={true}

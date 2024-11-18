@@ -14,7 +14,7 @@ export function Header() {
       <ButtonReservationContainer>
         <ButtonReservation />
       </ButtonReservationContainer>
-      <SocialListContainer></SocialListContainer>
+      <SocialListContainer />
       <HeaderAddress />
       <NavBarContainer>
         <Sidebar />
@@ -53,7 +53,7 @@ const LogoTypeContainer = styled(LogoType)`
   fill: white;
 `
 const NavBarContainer = styled.div`
-  padding: 10px 10px;
+  padding: 0px 10px;
   position: absolute;
   top: 0;
   right: 0;

@@ -9,6 +9,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/thumbs'
 import styled from '@emotion/styled'
 import { Button } from '@mui/material'
+import { ActionButton } from '../Buttons/ActionButton'
 const { mobile, tablet, desktop, desktopL, desktop4k } = BREAKPOINTS
 export const ServiceCarousel = () => {
   const topService = [
@@ -24,23 +25,32 @@ export const ServiceCarousel = () => {
       name: 'zabiegi na twarz',
       img: '/public/images/zabiegi-na-twarz.webp',
     },
+    {
+      name: 'manicure',
+      img: '/public/images/manicure.webp',
+    },
+    {
+      name: 'pedicure',
+      img: '/public/images/pedicure.webp',
+    },
+    {
+      name: 'zabiegi na twarz',
+      img: '/public/images/zabiegi-na-twarz.webp',
+    },
   ]
   return (
     <>
-      <Swiper
+      <SwiperStyled
         breakpoints={{
           0: { slidesPerView: 1 },
           768: { slidesPerView: 2 },
           1024: { slidesPerView: 3 },
-          // [desktopL]: { slidesPerView: 4, spaceBetween: 80 },
-          // [desktop4k]: { slidesPerView: 5, spaceBetween: 100 },
         }}
       >
-        {topService.map(({ name, img }) => (
-          <SwiperSlideStyled>
+        {topService.map(({ name, img }, index) => (
+          <SwiperSlideStyled key={index}>
             <Description>
               {/* <Logo variant="black" styles="swiperSlide" /> */}
-
               <Title>{name}</Title>
 
               <ListService>
@@ -54,40 +64,41 @@ export const ServiceCarousel = () => {
                   Pedicure klasyczny -<ServicePrice>130 płn</ServicePrice>
                 </ItemService>
               </ListService>
-              <Button>więcej usług</Button>
+              <ActionButton title="więcej usług" href="#" />
             </Description>
 
             <Image src={img} />
           </SwiperSlideStyled>
         ))}
-      </Swiper>
+      </SwiperStyled>
     </>
   )
 }
 const SwiperStyled = styled(Swiper)`
-min-width:${mobile}
-height:100vh
+  min-width: ${mobile};
 `
 const SwiperSlideStyled = styled(SwiperSlide)`
+  height: 100vh;
   display: flex;
   flex-direction: column;
   color: white;
-  &:nth-child(2n) {
+  &:nth-of-type(2n) {
     flex-direction: column-reverse;
   }
 `
 const Description = styled.div`
-  // padding-top: 40px;
-  text-align: center;
   height: 50%;
+  text-align: center;
   background-color: #66c7cd;
 `
 const Title = styled.h2`
-  margin-top: 10px;
+  margin-top: 40px;
   text-transform: uppercase;
 `
 const ListService = styled.ul`
   margin-top: 20px;
+  text-decoration: none;
+  list-style-type: none;
 `
 const ItemService = styled.li`
   padding: 5px 0;
@@ -96,7 +107,7 @@ const ItemService = styled.li`
 
   font-size: 14px;
 
-  &:not(:first-child) {
+  &:not(:first-of-type) {
     border-top: rgba(#fff, 0.1) 1px solid;
   }
 `
@@ -108,8 +119,6 @@ const ServicePrice = styled.span`
 const Image = styled.img`
   height: 50%;
   width: 100%;
-  background-color: black;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  object-fit: cover;
+  object-position: center;
 `

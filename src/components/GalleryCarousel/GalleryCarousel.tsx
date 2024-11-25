@@ -23,7 +23,7 @@ export const GalleryCarousel: React.FC = () => {
         modules={[FreeMode, Navigation, Thumbs]}
       >
         {SALON_IMAGES.map((image) => (
-          <StyledSwiperSlide>
+          <StyledSwiperSlide key={image.id}>
             <StyledImage
               src={image.src}
               alt={image.alt}
@@ -44,7 +44,7 @@ export const GalleryCarousel: React.FC = () => {
         modules={[FreeMode, Navigation, Thumbs]}
       >
         {SALON_IMAGES.map((image) => (
-          <StyledSwiperSlide>
+          <StyledSwiperSlide key={image.id}>
             <StyledImage
               src={image.src}
               alt={image.alt}

@@ -98,7 +98,6 @@ const MyComponent: React.FC = () => {
     },
     queryClientParams,
   )
-
   useEffect(() => {
     getCurrentUserUid().then((user) => {
       if (user) {
@@ -153,6 +152,8 @@ const MyComponent: React.FC = () => {
               serviceData
                 .sort((a: any, b: any) => a.name.localeCompare(b.name))
                 .map((service: any) => {
+                  // console.log(service.displayOrder)
+
                   return (
                     <TableRow key={service.id}>
                       <TableCallStyled>{service.name}</TableCallStyled>

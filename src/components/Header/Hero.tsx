@@ -49,7 +49,6 @@ const AnimatedTitle = styled.div`
   display: flex;
   justify-content: center;
   height: 200px;
-  position: absolute;
   top: 5%;
   width: ${mobile};
   width: 100%;

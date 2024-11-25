@@ -10,7 +10,6 @@ export const Footer = () => {
       sx={{
         backgroundColor: theme.footerBgColor,
         m: '0',
-        position: 'fixed',
         width: '100%',
         bottom: '0',
         left: '0',

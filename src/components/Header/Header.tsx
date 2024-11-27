@@ -2,19 +2,29 @@ import styled from '@emotion/styled'
 import Sidebar from '../Sidebar/Sidebar'
 import { LogoType } from '../LogoType/LogoType'
 import { HeaderAddress } from './HeaderAddress'
-import { ButtonReservation } from '../Buttons/ButtonReservation'
+import { ActionButton } from '../Buttons/ActionButton'
 import { Hero } from './Hero'
 import { SocialList } from '../SocialList/SocialList'
+import { SOCIAL_LINKS } from 'src/constants/SOCIAL_LINKS'
 
 export function Header() {
   return (
     <HeaderStyled>
       <LogoTypeContainer />
       <Hero />
-      <ButtonReservationContainer>
-        <ButtonReservation />
-      </ButtonReservationContainer>
-      <SocialListContainer></SocialListContainer>
+      <ActionButton
+        title={'Umów wizyte online'}
+        href={SOCIAL_LINKS.BOOKSY}
+        newWindow={true}
+        customStyle={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 2,
+        }}
+      />
+      <SocialListContainer />
       <HeaderAddress />
       <NavBarContainer>
         <Sidebar />
@@ -53,18 +63,12 @@ const LogoTypeContainer = styled(LogoType)`
   fill: white;
 `
 const NavBarContainer = styled.div`
-  padding: 10px 10px;
+  padding: 0px 10px;
   position: absolute;
   top: 0;
   right: 0;
   height: 100vh;
   border-left: 2px solid hsla(0, 0%, 100%, 0.1);
-`
-const ButtonReservationContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 `
 const SocialListContainer = styled.div`
   position: absolute;

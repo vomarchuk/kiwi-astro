@@ -38,6 +38,10 @@ export const CreateEditServiceForm = ({
     queryKey: ['services'],
     queryFn: async () => await fetchItems('services'),
   })
+  // const maxDisplayOrder =
+  //   dataServices && Math.max(...dataServices.map((item) => item.displayOrder))
+
+  // console.log(maxDisplayOrder)
 
   const onSubmit = async (data: ServiceType) => {
     const currentCategory = dataCategories?.find(

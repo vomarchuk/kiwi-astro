@@ -4,6 +4,8 @@ interface Props {
 }
 import { App } from '../components/App/App'
 const { title } = Astro.props
+import { BREAKPOINTS } from 'src/constants/BREAKPOINTS'
+const { mobile, tablet, desktop, desktopL, desktop4k } = BREAKPOINTS
 ---
 
 <!doctype html>
@@ -35,12 +37,21 @@ const { title } = Astro.props
       );
     }
     body {
-      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      /* min-height: 100vh; */
       font-family: 'Raleway', sans-serif;
-      background-image: url(/images/DSC_2781.webp);
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 1440px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      padding: 0;
+      margin: 0;
     }
     code {
       font-family:

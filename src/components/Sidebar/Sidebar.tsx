@@ -45,7 +45,7 @@ const Sidebar = () => {
               color: "white",
             }}
           >
-            <MenuIcon />
+            <MenuIcon sx={{ fill: "white", width: "35px", height: "35px" }} />
           </IconButton>
           <Menu
             id="menu-appbar"

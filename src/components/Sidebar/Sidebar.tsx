@@ -1,6 +1,6 @@
 // src/components/Sidebar.jsx
-import React, { useState } from 'react'
-import styled from '@emotion/styled'
+import React, { useState } from "react";
+import styled from "@emotion/styled";
 import {
   // Button,
   // Container,
@@ -12,28 +12,28 @@ import {
   // Toolbar,
   // Box,
   Drawer,
-} from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu'
-import { LogoType } from '../LogoType/LogoType'
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { LogoType } from "../LogoType/LogoType";
 // import { theme } from '../../theme'
-import { PAGES } from '../../constants/PAGES'
-import { Link } from '@tanstack/react-router'
+import { PAGES } from "../../constants/PAGES";
+import { Link } from "@tanstack/react-router";
 // import { ButtonReservation } from '../Buttons/ButtonReservation'
 // import { SocialList } from '../SocialList/SocialList'
 // import { SignInModal } from '../Modals/SignInModal'
 const Sidebar = () => {
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
-  const [open, setOpen] = useState(false)
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [open, setOpen] = useState(false);
   // const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) =>
   //   setAnchorElNav(event.currentTarget)
 
   // const handleOpenSignInModal = () => setOpen(true)
   // const handleCloseSignInModal = () => setOpen(false)
-  const handleCloseNavMenu = () => setAnchorElNav(null)
+  const handleCloseNavMenu = () => setAnchorElNav(null);
 
   const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen)
-  }
+    setOpen(newOpen);
+  };
 
   return (
     <>
@@ -45,14 +45,14 @@ const Sidebar = () => {
         onClick={toggleDrawer(true)}
         color="inherit"
         sx={{
-          width: '45px',
-          height: '45px',
+          width: "45px",
+          height: "45px",
           // backgroundColor: 'white',
           // position: 'absolute',
           // right: 0,
         }}
       >
-        <MenuIcon sx={{ fill: 'white', width: '35px', height: '35px' }} />
+        <MenuIcon sx={{ fill: "white", width: "35px", height: "35px" }} />
       </IconButton>
 
       <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
@@ -60,7 +60,7 @@ const Sidebar = () => {
         {PAGES.map((page) => (
           <MenuItem key={page.id} onClick={handleCloseNavMenu}>
             <LinkStyled to={`/services?id=${page.id}`}>
-              <Typography sx={{ textAlign: 'center' }}>{page.name}</Typography>
+              <Typography sx={{ textAlign: "center" }}>{page.name}</Typography>
             </LinkStyled>
           </MenuItem>
         ))}
@@ -119,24 +119,24 @@ const Sidebar = () => {
         <SocialList />
       </Toolbar> */}
     </>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;
 
 const LogoTypeS = styled(LogoType)`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-`
+`;
 
 const LinkStyled = styled(Link)`
   text-decoration: none;
   color: black;
-`
+`;
 const LinkMobileStyled = styled(Link)`
   text-decoration: none;
-`
+`;
 
 // import * as React from 'react'
 // import Box from '@mui/material/Box'

@@ -1,5 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { fetchItem, fetchItemsById, removeItem } from '../api/firebaseFunctions'
+import React, { useEffect, useState } from "react";
+import {
+  fetchItem,
+  fetchItemsById,
+  removeItem,
+} from "../api/firebaseFunctions";
 import {
   Button,
   Container,
@@ -17,109 +21,117 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from '@mui/material'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { useSearch } from '@tanstack/react-router'
-import { queryClientParams } from '../helpers/queryClientParams'
-import styled from '@emotion/styled'
-import { fetchUserData, getCurrentUserUid } from 'src/api/userOperations'
-import { AddIconButton } from 'src/components/Buttons/AddIconButton'
-import { CreateEditServicesModal } from 'src/components/Modals/CreateEditServicesModal'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Link, useSearch } from "@tanstack/react-router";
+import { queryClientParams } from "../helpers/queryClientParams";
+import styled from "@emotion/styled";
+import { fetchUserData, getCurrentUserUid } from "src/api/userOperations";
+import { AddIconButton } from "src/components/Buttons/AddIconButton";
+import { CreateEditServicesModal } from "src/components/Modals/CreateEditServicesModal";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { PAGES } from "src/constants/PAGES";
 
-const MyComponent: React.FC = () => {
-  const { id } = useSearch({ from: '/services' }) as any
-  const [currentUserId, setCurrentUserId] = useState<any>()
-  const queryClient = useQueryClient()
-  const [open, setOpen] = useState(false)
-  const [openDialog, setOpenDialog] = useState(false)
-  const [editItemId, setEditItemId] = useState<any>(null)
-  const [currentRemoveItem, setCurrentRemoveItem] = useState<any>(null)
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const handleClickOpen = () => setOpen(true)
+const ServicePage: React.FC = () => {
+  const { id } = useSearch({ from: "/services" }) as any;
+  const [currentUserId, setCurrentUserId] = useState<any>();
+  const queryClient = useQueryClient();
+  const [open, setOpen] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [editItemId, setEditItemId] = useState<any>(null);
+  const [currentRemoveItem, setCurrentRemoveItem] = useState<any>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const handleClickOpen = () => setOpen(true);
   const handleClose = () => {
-    setOpen(false)
-    setEditItemId(null)
-  }
-  const openOptionsMenu = Boolean(anchorEl)
+    setOpen(false);
+    setEditItemId(null);
+  };
+  const openOptionsMenu = Boolean(anchorEl);
   const handleOpenSelectionsMenu = (
     event: React.MouseEvent<HTMLElement>,
-    itemId: string,
+    itemId: string
   ) => {
-    setEditItemId(itemId)
-    setAnchorEl(event.currentTarget)
-  }
+    setEditItemId(itemId);
+    setAnchorEl(event.currentTarget);
+  };
   const handleCloseSelectionsMenu = () => {
-    setAnchorEl(null)
-    setEditItemId(null)
-  }
+    setAnchorEl(null);
+    setEditItemId(null);
+  };
   const handleClickOpenDialog = () => {
     const findRemoveItem = serviceData?.find(
-      (item: any) => item.id === editItemId,
-    )
-    setCurrentRemoveItem(findRemoveItem)
-    setOpenDialog(true)
-  }
-  const handleClickCloseDialog = () => setOpenDialog(false)
+      (item: any) => item.id === editItemId
+    );
+    setCurrentRemoveItem(findRemoveItem);
+    setOpenDialog(true);
+  };
+  const handleClickCloseDialog = () => setOpenDialog(false);
 
   const editItemById = () => {
-    setAnchorEl(null)
-    handleClickOpen()
-  }
+    setAnchorEl(null);
+    handleClickOpen();
+  };
   const removeItemById = () => {
-    removeItem('services', editItemId)
-    queryClient.invalidateQueries({ queryKey: ['services'] })
-    setCurrentRemoveItem(null)
-    setOpenDialog(false)
-    setAnchorEl(null)
-    setEditItemId(null)
-  }
+    removeItem("services", editItemId);
+    queryClient.invalidateQueries({ queryKey: ["services"] });
+    setCurrentRemoveItem(null);
+    setOpenDialog(false);
+    setAnchorEl(null);
+    setEditItemId(null);
+  };
 
   const { data: dataCurrentUser } = useQuery(
     {
-      queryKey: ['user'],
+      queryKey: ["user"],
       queryFn: async () => await fetchUserData(currentUserId),
     },
-    queryClientParams,
-  )
+    queryClientParams
+  );
   const { data: dataCategory } = useQuery<any>(
     {
-      queryKey: ['categories', id],
-      queryFn: async () => await fetchItem('categories', id),
+      queryKey: ["categories", id],
+      queryFn: async () => await fetchItem("categories", id),
     },
-    queryClientParams,
-  )
+    queryClientParams
+  );
   const { data: serviceData } = useQuery(
     {
-      queryKey: ['services', id],
-      queryFn: async () => await fetchItemsById('services', id),
+      queryKey: ["services", id],
+      queryFn: async () => await fetchItemsById("services", id),
     },
-    queryClientParams,
-  )
+    queryClientParams
+  );
   useEffect(() => {
     getCurrentUserUid().then((user) => {
       if (user) {
-        setCurrentUserId(user)
+        setCurrentUserId(user);
       }
-    })
-  }, [])
+    });
+  }, []);
 
   return (
     <Container
-      component={'main'}
+      component={"main"}
       sx={{
-        pt: '100px',
-        pb: '80px',
-        textAlign: 'center',
-        fontFamily: 'Raleway, sans-serif',
+        pt: "100px",
+        pb: "80px",
+        textAlign: "center",
+        fontFamily: "Raleway, sans-serif",
       }}
     >
+      <NavBarStyled>
+        {PAGES.map((page) => (
+          <LinkStyled to={`/services?id=${page.id}`}>
+            <Typography sx={{ textAlign: "center" }}>{page.name}</Typography>
+          </LinkStyled>
+        ))}
+      </NavBarStyled>
       {dataCategory && (
         <Typography
-          component={'h1'}
-          sx={{ fontSize: '18px', fontWeight: '600' }}
+          component={"h1"}
+          sx={{ fontSize: "18px", fontWeight: "600" }}
         >
           {dataCategory.name}
         </Typography>
@@ -133,15 +145,15 @@ const MyComponent: React.FC = () => {
           editItemId={editItemId}
         />
       )}
-      <TableContainer component={Paper} sx={{ mt: '15px' }}>
+      <TableContainer component={Paper} sx={{ mt: "15px" }}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCallStyled sortDirection={'asc'} sx={{ width: '68%' }}>
+              <TableCallStyled sortDirection={"asc"} sx={{ width: "68%" }}>
                 Usługa
               </TableCallStyled>
-              <TableCallStyled sx={{ width: '22%' }}>Cena</TableCallStyled>
-              <TableCallStyled sx={{ width: '10%' }}>
+              <TableCallStyled sx={{ width: "22%" }}>Cena</TableCallStyled>
+              <TableCallStyled sx={{ width: "10%" }}>
                 Czas wykonania
               </TableCallStyled>
               {dataCurrentUser && <TableCallStyled>Edytuj</TableCallStyled>}
@@ -152,8 +164,6 @@ const MyComponent: React.FC = () => {
               serviceData
                 .sort((a: any, b: any) => a.name.localeCompare(b.name))
                 .map((service: any) => {
-                  // console.log(service.displayOrder)
-
                   return (
                     <TableRow key={service.id}>
                       <TableCallStyled>{service.name}</TableCallStyled>
@@ -162,20 +172,20 @@ const MyComponent: React.FC = () => {
                       {dataCurrentUser && (
                         <TableCallStyled
                           sx={{
-                            display: 'table-cell',
-                            alignItems: 'center',
+                            display: "table-cell",
+                            alignItems: "center",
                           }}
                         >
                           <Fab
                             aria-label="more"
                             id="long-button"
                             aria-controls={
-                              openOptionsMenu ? 'long-menu' : undefined
+                              openOptionsMenu ? "long-menu" : undefined
                             }
-                            aria-expanded={openOptionsMenu ? 'true' : undefined}
+                            aria-expanded={openOptionsMenu ? "true" : undefined}
                             aria-haspopup="true"
                             onClick={(e) => {
-                              handleOpenSelectionsMenu(e, service.id)
+                              handleOpenSelectionsMenu(e, service.id);
                             }}
                           >
                             <MoreVertIcon />
@@ -187,8 +197,8 @@ const MyComponent: React.FC = () => {
                             slotProps={{
                               paper: {
                                 style: {
-                                  backgroundColor: 'transparent',
-                                  boxShadow: 'none',
+                                  backgroundColor: "transparent",
+                                  boxShadow: "none",
                                 },
                               },
                             }}
@@ -198,7 +208,7 @@ const MyComponent: React.FC = () => {
                                 color="primary"
                                 aria-label="edit"
                                 onClick={editItemById}
-                                sx={{ boxShadow: 'none' }}
+                                sx={{ boxShadow: "none" }}
                               >
                                 <EditIcon />
                               </Fab>
@@ -206,14 +216,14 @@ const MyComponent: React.FC = () => {
                             <MenuItemStyled
                               disableGutters
                               sx={{
-                                marginTop: '5px',
+                                marginTop: "5px",
                               }}
                             >
                               <Fab
                                 color="error"
                                 aria-label="remove"
                                 onClick={handleClickOpenDialog}
-                                sx={{ boxShadow: 'none' }}
+                                sx={{ boxShadow: "none" }}
                               >
                                 <DeleteForeverIcon />
                               </Fab>
@@ -226,7 +236,7 @@ const MyComponent: React.FC = () => {
                               aria-describedby="alert-dialog-slide-description"
                             >
                               <DialogTitle>
-                                Czy na pewno chcesz usunąć:{' '}
+                                Czy na pewno chcesz usunąć:{" "}
                                 <Span>
                                   {currentRemoveItem && currentRemoveItem.name}
                                 </Span>
@@ -243,28 +253,38 @@ const MyComponent: React.FC = () => {
                         </TableCallStyled>
                       )}
                     </TableRow>
-                  )
+                  );
                 })}
           </TableBody>
         </Table>
       </TableContainer>
     </Container>
-  )
-}
+  );
+};
 
-export default MyComponent
+export default ServicePage;
 
 const TableCallStyled = styled(TableCell)`
   padding: 15px 10px;
   min-height: 50px;
-`
+`;
 const Span = styled.span`
   color: red;
   font-weight: bold;
-`
+`;
 const MenuItemStyled = styled(MenuItem)`
   border-radius: 50%;
   width: 56px;
   height: 56px;
   padding: 0px;
-`
+`;
+const NavBarStyled = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+const LinkStyled = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;

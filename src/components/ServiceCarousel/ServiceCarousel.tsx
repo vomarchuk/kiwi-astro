@@ -1,43 +1,43 @@
-import React, { useState } from 'react'
-import SwiperCore from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { FreeMode, Navigation, Thumbs } from 'swiper/modules'
-import { BREAKPOINTS } from 'src/constants/BREAKPOINTS'
-import 'swiper/css'
-import 'swiper/css/free-mode'
-import 'swiper/css/navigation'
-import 'swiper/css/thumbs'
-import styled from '@emotion/styled'
-import { Button } from '@mui/material'
-import { ActionButton } from '../Buttons/ActionButton'
-const { mobile, tablet, desktop, desktopL, desktop4k } = BREAKPOINTS
+import React, { useState } from "react";
+import SwiperCore from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import { BREAKPOINTS } from "src/constants/BREAKPOINTS";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+import styled from "@emotion/styled";
+import { Button } from "@mui/material";
+import { ActionButton } from "../Buttons/ActionButton";
+const { mobile, tablet, desktop, desktopL, desktop4k } = BREAKPOINTS;
 export const ServiceCarousel = () => {
   const topService = [
     {
-      name: 'manicure',
-      img: '/public/images/manicure.webp',
+      name: "manicure",
+      img: "/images/manicure.webp",
     },
     {
-      name: 'pedicure',
-      img: '/public/images/pedicure.webp',
+      name: "pedicure",
+      img: "/images/pedicure.webp",
     },
     {
-      name: 'zabiegi na twarz',
-      img: '/public/images/zabiegi-na-twarz.webp',
+      name: "zabiegi na twarz",
+      img: "/images/zabiegi-na-twarz.webp",
     },
     {
-      name: 'manicure',
-      img: '/public/images/manicure.webp',
+      name: "manicure",
+      img: "/images/manicure.webp",
     },
     {
-      name: 'pedicure',
-      img: '/public/images/pedicure.webp',
+      name: "pedicure",
+      img: "/images/pedicure.webp",
     },
     {
-      name: 'zabiegi na twarz',
-      img: '/public/images/zabiegi-na-twarz.webp',
+      name: "zabiegi na twarz",
+      img: "/images/zabiegi-na-twarz.webp",
     },
-  ]
+  ];
   return (
     <>
       <SwiperStyled
@@ -72,11 +72,11 @@ export const ServiceCarousel = () => {
         ))}
       </SwiperStyled>
     </>
-  )
-}
+  );
+};
 const SwiperStyled = styled(Swiper)`
   min-width: ${mobile};
-`
+`;
 const SwiperSlideStyled = styled(SwiperSlide)`
   height: 100vh;
   display: flex;
@@ -85,21 +85,21 @@ const SwiperSlideStyled = styled(SwiperSlide)`
   &:nth-of-type(2n) {
     flex-direction: column-reverse;
   }
-`
+`;
 const Description = styled.div`
   height: 50%;
   text-align: center;
   background-color: #66c7cd;
-`
+`;
 const Title = styled.h2`
   margin-top: 40px;
   text-transform: uppercase;
-`
+`;
 const ListService = styled.ul`
   margin-top: 20px;
   text-decoration: none;
   list-style-type: none;
-`
+`;
 const ItemService = styled.li`
   padding: 5px 0;
   margin-left: 15px;
@@ -110,15 +110,15 @@ const ItemService = styled.li`
   &:not(:first-of-type) {
     border-top: rgba(#fff, 0.1) 1px solid;
   }
-`
+`;
 const ServicePrice = styled.span`
   color: #4a4a4a;
   font-weight: bold;
   margin-left: 5px;
-`
+`;
 const Image = styled.img`
   height: 50%;
   width: 100%;
   object-fit: cover;
   object-position: center;
-`
+`;

@@ -1,11 +1,11 @@
-import styled from '@emotion/styled'
-import Sidebar from '../Sidebar/Sidebar'
-import { LogoType } from '../LogoType/LogoType'
-import { HeaderAddress } from './HeaderAddress'
-import { ActionButton } from '../Buttons/ActionButton'
-import { Hero } from './Hero'
-import { SocialList } from '../SocialList/SocialList'
-import { SOCIAL_LINKS } from 'src/constants/SOCIAL_LINKS'
+import styled from "@emotion/styled";
+import Sidebar from "../Sidebar/Sidebar";
+import { LogoType } from "../LogoType/LogoType";
+import { HeaderAddress } from "./HeaderAddress";
+import { ActionButton } from "../Buttons/ActionButton";
+import { Hero } from "./Hero";
+import { SocialList } from "../SocialList/SocialList";
+import { SOCIAL_LINKS } from "src/constants/SOCIAL_LINKS";
 
 export function Header() {
   return (
@@ -13,14 +13,14 @@ export function Header() {
       <LogoTypeContainer />
       <Hero />
       <ActionButton
-        title={'Umów wizyte online'}
+        title={"Umów wizyte online"}
         href={SOCIAL_LINKS.BOOKSY}
         newWindow={true}
         customStyle={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
           zIndex: 2,
         }}
       />
@@ -31,7 +31,7 @@ export function Header() {
         <SocialList flexDirection="column" />
       </NavBarContainer>
     </HeaderStyled>
-  )
+  );
 }
 
 const HeaderStyled = styled.header`
@@ -54,14 +54,14 @@ const HeaderStyled = styled.header`
   & > * {
     z-index: 2;
   }
-`
+`;
 const LogoTypeContainer = styled(LogoType)`
   position: absolute;
   margin-left: 20px;
   margin-top: 20px;
   width: 100px;
   fill: white;
-`
+`;
 const NavBarContainer = styled.div`
   padding: 0px 10px;
   position: absolute;
@@ -69,9 +69,9 @@ const NavBarContainer = styled.div`
   right: 0;
   height: 100vh;
   border-left: 2px solid hsla(0, 0%, 100%, 0.1);
-`
+`;
 const SocialListContainer = styled.div`
   position: absolute;
   right: 0;
   padding: 10px 10px;
-`
+`;

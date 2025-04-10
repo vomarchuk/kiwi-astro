@@ -6,31 +6,41 @@ import { ActionButton } from "../Buttons/ActionButton";
 import { Hero } from "./Hero";
 import { SocialList } from "../SocialList/SocialList";
 import { SOCIAL_LINKS } from "src/constants/SOCIAL_LINKS";
+import { SignInModal } from "../Modals/SignInModal";
+import { useState } from "react";
 
 export function Header() {
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
-    <HeaderStyled>
-      <LogoTypeContainer />
-      <Hero />
-      <ActionButton
-        title={"Umów wizyte online"}
-        href={SOCIAL_LINKS.BOOKSY}
-        newWindow={true}
-        customStyle={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          zIndex: 2,
-        }}
-      />
-      <SocialListContainer />
-      <HeaderAddress />
-      <NavBarContainer>
-        <Sidebar />
-        <SocialList flexDirection="column" />
-      </NavBarContainer>
-    </HeaderStyled>
+    <>
+      <HeaderStyled>
+        <LogoTypeContainer onClick={() => setOpen(true)} />
+        <Hero />
+        <ActionButton
+          title={"Umów wizyte online"}
+          href={SOCIAL_LINKS.BOOKSY}
+          newWindow={true}
+          customStyle={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 2,
+          }}
+        />
+        <SocialListContainer />
+        <HeaderAddress />
+        <NavBarContainer>
+          <Sidebar />
+          <SocialList flexDirection="column" />
+        </NavBarContainer>
+      </HeaderStyled>
+      <SignInModal open={open} handleClose={handleClose} />
+    </>
   );
 }
 

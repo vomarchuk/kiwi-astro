@@ -35,6 +35,7 @@ import { CreateEditServicesModal } from "src/components/Modals/CreateEditService
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Sidebar from "src/components/Sidebar/Sidebar";
 import { GoBackIconButton } from "src/components/Buttons/GoBackIconButton";
+import { SignInModal } from "src/components/Modals/SignInModal";
 const ServicePage: React.FC = () => {
   const { id } = useSearch({ from: "/services" }) as any;
   const [currentUserId, setCurrentUserId] = useState<any>();

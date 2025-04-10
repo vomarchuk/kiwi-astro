@@ -4,18 +4,16 @@ import {
   createRoute,
   createRootRoute,
 } from "@tanstack/react-router";
-// import Sidebar from "./components/Sidebar/Sidebar";
-import ServicePage from "./pages/ServicePage";
+import ServicePage from "./pages/_ServicePage";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { queryClientParams } from "./helpers/queryClientParams";
 import { QueryClientProvider } from "@tanstack/react-query";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/_HomePage";
 // import { Footer } from "./components/Footer/Footer";
-import LoginPage from "./pages/LoginPage";
+import LoginPage from "./pages/_LoginPage";
 const rootRoute = createRootRoute({
   component: () => (
     <QueryClientProvider client={queryClientParams}>
-      {/* <Sidebar /> */}
       <Outlet />
       {/* <Footer /> */}
       <ReactQueryDevtools />

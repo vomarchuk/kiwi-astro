@@ -5,6 +5,7 @@ import {
   removeItem,
 } from "../api/firebaseFunctions";
 import {
+  Box,
   Button,
   Container,
   Dialog,
@@ -25,15 +26,15 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Link, useSearch } from "@tanstack/react-router";
+import { useSearch, useNavigate } from "@tanstack/react-router";
 import { queryClientParams } from "../helpers/queryClientParams";
 import styled from "@emotion/styled";
 import { fetchUserData, getCurrentUserUid } from "src/api/userOperations";
 import { AddIconButton } from "src/components/Buttons/AddIconButton";
 import { CreateEditServicesModal } from "src/components/Modals/CreateEditServicesModal";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { PAGES } from "src/constants/PAGES";
-
+import Sidebar from "src/components/Sidebar/Sidebar";
+import { GoBackIconButton } from "src/components/Buttons/GoBackIconButton";
 const ServicePage: React.FC = () => {
   const { id } = useSearch({ from: "/services" }) as any;
   const [currentUserId, setCurrentUserId] = useState<any>();
@@ -43,6 +44,7 @@ const ServicePage: React.FC = () => {
   const [editItemId, setEditItemId] = useState<any>(null);
   const [currentRemoveItem, setCurrentRemoveItem] = useState<any>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -103,6 +105,7 @@ const ServicePage: React.FC = () => {
     },
     queryClientParams
   );
+
   useEffect(() => {
     getCurrentUserUid().then((user) => {
       if (user) {
@@ -117,17 +120,24 @@ const ServicePage: React.FC = () => {
       sx={{
         pt: "100px",
         pb: "80px",
+        minHeight: "100vh",
+        width: "100vw",
         textAlign: "center",
         fontFamily: "Raleway, sans-serif",
+        backgroundImage: 'url("/images/DSC_2781.webp")',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
-      <NavBarStyled>
-        {PAGES.map((page) => (
-          <LinkStyled to={`/services?id=${page.id}`}>
-            <Typography sx={{ textAlign: "center" }}>{page.name}</Typography>
-          </LinkStyled>
-        ))}
-      </NavBarStyled>
+      <NavigateWrapperStyled>
+        <IconWrapperStyled>
+          <GoBackIconButton onClick={() => navigate({ to: "/" })} />
+        </IconWrapperStyled>
+        <IconWrapperStyled>
+          <Sidebar fill="black" />
+        </IconWrapperStyled>
+      </NavigateWrapperStyled>
       {dataCategory && (
         <Typography
           component={"h1"}
@@ -278,13 +288,18 @@ const MenuItemStyled = styled(MenuItem)`
   height: 56px;
   padding: 0px;
 `;
-const NavBarStyled = styled.div`
+const NavigateWrapperStyled = styled(Box)`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  position: fixed;
+  top: 10px;
+  left: 0px;
+  right: 0px;
+  max-width: 1200px;
+  margin: 0 auto;
 `;
-const LinkStyled = styled(Link)`
-  text-decoration: none;
-  color: black;
+const IconWrapperStyled = styled(Box)`
+  padding: 10px;
 `;

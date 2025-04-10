@@ -10,7 +10,6 @@ const Sidebar = ({ fill }: { fill?: string }) => {
   const handleCloseNavMenu = () => setAnchorElNav(null);
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) =>
     setAnchorElNav(event.currentTarget);
-  //
   return (
     <Box
       sx={{

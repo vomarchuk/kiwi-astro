@@ -35,9 +35,7 @@ import { CreateEditServicesModal } from "src/components/Modals/CreateEditService
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Sidebar from "src/components/Sidebar/Sidebar";
 import { GoBackIconButton } from "src/components/Buttons/GoBackIconButton";
-import { theme } from "src/theme";
-
-const MyComponent: React.FC = () => {
+const ServicePage: React.FC = () => {
   const { id } = useSearch({ from: "/services" }) as any;
   const [currentUserId, setCurrentUserId] = useState<any>();
   const queryClient = useQueryClient();
@@ -46,6 +44,7 @@ const MyComponent: React.FC = () => {
   const [editItemId, setEditItemId] = useState<any>(null);
   const [currentRemoveItem, setCurrentRemoveItem] = useState<any>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -106,7 +105,7 @@ const MyComponent: React.FC = () => {
     },
     queryClientParams
   );
-  const navigate = useNavigate();
+
   useEffect(() => {
     getCurrentUserUid().then((user) => {
       if (user) {
@@ -273,7 +272,7 @@ const MyComponent: React.FC = () => {
   );
 };
 
-export default MyComponent;
+export default ServicePage;
 
 const TableCallStyled = styled(TableCell)`
   padding: 15px 10px;

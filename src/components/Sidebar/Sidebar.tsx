@@ -10,13 +10,11 @@ import {
   Drawer,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { LogoType } from "../LogoType/LogoType";
 import { PAGES } from "../../constants/PAGES";
 import { Link } from "@tanstack/react-router";
-import { SocialList } from "../SocialList/SocialList";
+
 const Sidebar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const [open, setOpen] = useState(false);
   const handleCloseNavMenu = () => setAnchorElNav(null);
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) =>
     setAnchorElNav(event.currentTarget);
@@ -63,13 +61,22 @@ const Sidebar = () => {
             onClose={handleCloseNavMenu}
           >
             {PAGES.map((page) => (
-              <MenuItem key={page.id} onClick={handleCloseNavMenu}>
-                <LinkStyled to={`/services?id=${page.id}`}>
+              <LinkStyled key={page.id} to={`/services?id=${page.id}`}>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <img
+                    src="/favicon.svg"
+                    alt="favicon"
+                    style={{
+                      width: "10px",
+                      height: "10px",
+                      marginRight: "8px",
+                    }}
+                  />
                   <Typography sx={{ textAlign: "center" }}>
                     {page.name}
                   </Typography>
-                </LinkStyled>
-              </MenuItem>
+                </MenuItem>
+              </LinkStyled>
             ))}
           </Menu>
         </Box>
@@ -80,6 +87,7 @@ const Sidebar = () => {
 
 export default Sidebar;
 const LinkStyled = styled(Link)`
+  outline: 1px solid red;
   text-decoration: none;
   color: black;
 `;

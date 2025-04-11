@@ -1,7 +1,7 @@
-import NearMeIcon from '@mui/icons-material/NearMe'
-import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone'
-
-import styled from '@emotion/styled'
+import NearMeIcon from "@mui/icons-material/NearMe";
+import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
+import { mediaQueries } from "../../constants/BREAKPOINTS";
+import styled from "@emotion/styled";
 
 export const HeaderAddress = () => {
   return (
@@ -21,8 +21,8 @@ export const HeaderAddress = () => {
         </p>
       </WorkTime>
     </AddressContainer>
-  )
-}
+  );
+};
 
 const AddressContainer = styled.address`
   position: absolute;
@@ -35,12 +35,18 @@ const AddressContainer = styled.address`
   border-top: 1px solid hsla(0, 0%, 100%, 0.15);
   color: #54c263;
   padding: 15px 0px;
-`
+  ${mediaQueries.up("tablet")} {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+`;
 const Address = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 const Phone = styled.a`
   margin-top: 5px;
   display: flex;
@@ -48,10 +54,10 @@ const Phone = styled.a`
   align-items: center;
   text-decoration: none;
   color: #54c263;
-`
+`;
 const WorkTime = styled.div`
   margin-top: 5px;
   display: flex;
   justify-content: center;
   align-items: end;
-`
+`;

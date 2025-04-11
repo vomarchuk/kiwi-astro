@@ -35,7 +35,6 @@ import { CreateEditServicesModal } from "src/components/Modals/CreateEditService
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Sidebar from "src/components/Sidebar/Sidebar";
 import { GoBackIconButton } from "src/components/Buttons/GoBackIconButton";
-import { SignInModal } from "src/components/Modals/SignInModal";
 const ServicePage: React.FC = () => {
   const { id } = useSearch({ from: "/services" }) as any;
   const [currentUserId, setCurrentUserId] = useState<any>();
@@ -117,12 +116,13 @@ const ServicePage: React.FC = () => {
 
   return (
     <Container
+      maxWidth="xl"
       component={"main"}
       sx={{
         pt: "100px",
         pb: "80px",
         minHeight: "100vh",
-        width: "100vw",
+        width: "100vn",
         textAlign: "center",
         fontFamily: "Raleway, sans-serif",
         backgroundImage: 'url("/images/DSC_2781.webp")',
@@ -298,7 +298,7 @@ const NavigateWrapperStyled = styled(Box)`
   top: 10px;
   left: 0px;
   right: 0px;
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
 `;
 const IconWrapperStyled = styled(Box)`

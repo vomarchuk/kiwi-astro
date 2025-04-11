@@ -8,11 +8,33 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import styled from "@emotion/styled";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { ActionButton } from "../Buttons/ActionButton";
 const { mobile, tablet, desktop, desktopL, desktop4k } = BREAKPOINTS;
 export const ServiceCarousel = () => {
   const topService = [
+    {
+      name: "Zestawy promocyjne",
+      img: "/images/manicure.webp",
+      services: [
+        {
+          name: "Komplet manicure + pedicure hybrydowy",
+          price: "280 płn",
+        },
+        {
+          name: "Komplet manicure + pedicure z lakierem klasycznym",
+          price: "230 płn",
+        },
+        {
+          name: "Komplet manicure + pedicure z odżywką",
+          price: "210 płn",
+        },
+        {
+          name: "Komplet Manicure + Pedicure Japoński",
+          price: "210 płn",
+        },
+      ],
+    },
     {
       name: "manicure",
       img: "/images/manicure.webp",
@@ -47,27 +69,23 @@ export const ServiceCarousel = () => {
           1024: { slidesPerView: 3 },
         }}
       >
-        {topService.map(({ name, img }, index) => (
+        {topService.map(({ name, img, services }, index) => (
           <SwiperSlideStyled key={index}>
             <Description>
               {/* <Logo variant="black" styles="swiperSlide" /> */}
               <Title>{name}</Title>
-
-              <ListService>
-                <ItemService>
-                  Pedicure hybrydowy -<ServicePrice>160 płn</ServicePrice>
-                </ItemService>
-                <ItemService>
-                  Pedicure Vinylux -<ServicePrice>140 płn</ServicePrice>
-                </ItemService>
-                <ItemService>
-                  Pedicure klasyczny -<ServicePrice>130 płn</ServicePrice>
-                </ItemService>
-              </ListService>
+              {services?.map((service) => (
+                <ListService>
+                  <ItemService>
+                    <ServiceName>{service.name}</ServiceName>
+                    <ServicePrice>{service.price}</ServicePrice>
+                  </ItemService>
+                </ListService>
+              ))}
               <ActionButton title="więcej usług" href="#" />
             </Description>
 
-            <Image src={img} />
+            <Image src={img} alt={name} />
           </SwiperSlideStyled>
         ))}
       </SwiperStyled>
@@ -95,8 +113,12 @@ const Title = styled.h2`
   margin-top: 40px;
   text-transform: uppercase;
 `;
+const ServiceName = styled.h3`
+  font-size: 16px;
+`;
 const ListService = styled.ul`
   margin-top: 20px;
+  padding: 0;
   text-decoration: none;
   list-style-type: none;
 `;

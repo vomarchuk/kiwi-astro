@@ -1,20 +1,19 @@
-import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
-import { getDatabase } from 'firebase/database'
-import { getFirestore } from 'firebase/firestore'
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBbKPkCtsM5ojaYAN6yJ7lliARD4vki_i8",
-  authDomain: "kiwi-beauty-salon.firebaseapp.com",
-  projectId: "kiwi-beauty-salon",
-  storageBucket: "kiwi-beauty-salon.appspot.com",
-  messagingSenderId: "174656953142",
-  appId: "1:174656953142:web:78ce47fea27e51162af197",
-  measurementId: "G-G3NPLF94KS"
+  apiKey: import.meta.env.PUBLIC_FIREBASE_API_KEY,
+  authDomain: import.meta.env.PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.PUBLIC_FIREBASE_APP_ID,
+  measurementId: import.meta.env.PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-
-export const app = initializeApp(firebaseConfig)
-export const firestore = getFirestore(app)
-export const auth = getAuth(app)
-export const database = getDatabase(app)
+export const app = initializeApp(firebaseConfig);
+export const firestore = getFirestore(app);
+export const auth = getAuth(app);
+export const database = getDatabase(app);

@@ -83,6 +83,7 @@ const ServicePage: React.FC = () => {
     setAnchorEl(null);
     setEditItemId(null);
   };
+  console.log(currentUserId);
 
   const { data: dataCurrentUser } = useQuery(
     {
@@ -105,6 +106,7 @@ const ServicePage: React.FC = () => {
     },
     queryClientParams
   );
+  console.log(dataCurrentUser);
 
   useEffect(() => {
     getCurrentUserUid().then((user) => {

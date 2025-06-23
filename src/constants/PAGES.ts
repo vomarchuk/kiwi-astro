@@ -20,6 +20,10 @@ export const PAGES = [
     id: "BNAEp1L5eTxoLatLJpBM",
   },
   {
+    name: "Depilacja laserowa pakiety (5 sesji)",
+    id: "zxEWaBJZM4tIHYJrGqNp",
+  },
+  {
     name: "Zabiegi na twarz",
     id: "4UeXBlIEcT2PvQMzOsdt",
   },

@@ -8,7 +8,7 @@ export const HeaderAddress = () => {
     <AddressContainer>
       <Address>
         <NearMeIcon />
-        <p>Floriańska 6/u7, Warszawa</p>
+        <p>Środkowa 8, Warszawa</p>
       </Address>
       <Phone href="tel:+48577205500">
         <PhoneIphoneIcon />
